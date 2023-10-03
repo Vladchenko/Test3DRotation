@@ -1,12 +1,13 @@
 package ru.yanchenko.vlad.shutter;
 
+import javax.swing.*;
 import java.awt.*;
-import javax.swing.JPanel;
-import ru.yanchenko.vlad.shutter.data.DekartPoint;
+import java.awt.geom.Ellipse2D;
 
 public class Drawing extends JPanel {
 
     private static Repository oRepository;
+    private double radius;
 
     /**
      * Constructor is made private, for it could not be instantiated anywhere
@@ -36,53 +37,36 @@ public class Drawing extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
 
         /** Adding an antialiasing for graphics */
-//        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//                RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
 
-//        float dash1[] = {1.0f, 0.0f};
-//        g2.setStroke(new BasicStroke(2,
-//                BasicStroke.CAP_ROUND,
-//                BasicStroke.JOIN_ROUND,
-//                0, dash1, 10.0f));
+        float dash1[] = {1.0f, 0.0f};
+        g2.setStroke(new BasicStroke(2,
+                BasicStroke.CAP_ROUND,
+                BasicStroke.JOIN_ROUND,
+                0, dash1, 10.0f));
 
         //** Put only a code that has to do with a drawing !
-        //** Sample code
-        
-//        g2.setColor(Color.green);
 
-//        g.drawString("Sample text", oRepository.getPntScreenCenter().x,
-//                oRepository.getPntScreenCenter().y);
-        g2.setColor(Color.white);
-        for (DekartPoint dekartPoint : oRepository.getPoints()) {
-            g2.drawOval(
-                    (int) dekartPoint.getX() + oRepository.getScreenWidth() / 2 - 2,
-                    (int) dekartPoint.getY() + oRepository.getScreenHeight() / 2 - 2,
-                    4,
-                    4);
-//            g2.setColor(Color.green);
-//            g2.drawLine((int)oRepository.getExtDots().getExtDots1().get(i).getX(),
-//                    (int)oRepository.getExtDots().getExtDots1().get(i).getY(),
-//                    (int)oRepository.getExtDots().getExtDots2().get(i).getX(),
-//                    (int)oRepository.getExtDots().getExtDots2().get(i).getY());
-//            g2.setColor(Color.blue);
-//            g2.drawLine((int)oRepository.getExtDots().getExtDots3().get(i).getX(),
-//                    (int)oRepository.getExtDots().getExtDots3().get(i).getY(),
-//                    (int)oRepository.getExtDots().getExtDots4().get(i).getX(),
-//                    (int)oRepository.getExtDots().getExtDots4().get(i).getY());
+        for (int i = 0; i < oRepository.getPoints().length; i++) {
+            radius = (oRepository.getPoints()[i].getZ() + oRepository.getRange()) / oRepository.getRange() * 20;
+
+
+            RadialGradientPaint bgPaint = new RadialGradientPaint(
+                    (float) (oRepository.getPoints()[i].getX() + oRepository.getScreenWidth() / 2) - 1,
+                    (float) (oRepository.getPoints()[i].getY() + oRepository.getScreenHeight() / 2) - 1,
+                    (float) radius / 2,
+                    new float[] {0.1f, 1.0f},
+                    new Color[] {oRepository.getColors()[i], Color.BLACK});
+
+            g2.setPaint(bgPaint);
+
+            g2.fillOval(
+                    (int) (oRepository.getPoints()[i].getX() + oRepository.getScreenWidth() / 2 - radius / 2),
+                    (int) (oRepository.getPoints()[i].getY() + oRepository.getScreenHeight() / 2 - radius / 2),
+                    (int) radius,
+                    (int) radius);
+
         }
-//        g2.setColor(Color.green);
-//        for (int i=0; i < oRepository.getExtDots().getExtDots1().size(); i++) {
-//            g2.drawLine((int)oRepository.getExtDots().getExtDots1().get(i).getX(),
-//                    (int)oRepository.getExtDots().getExtDots1().get(i).getY(),
-//                    (int)oRepository.getExtDots().getExtDots2().get(i).getX(),
-//                    (int)oRepository.getExtDots().getExtDots2().get(i).getY());
-//        }
-//        g2.setColor(Color.blue);
-//        for (int i=0; i < oRepository.getExtDots().getExtDots1().size(); i++) {
-//            g2.drawLine((int)oRepository.getExtDots().getExtDots3().get(i).getX(),
-//                    (int)oRepository.getExtDots().getExtDots3().get(i).getY(),
-//                    (int)oRepository.getExtDots().getExtDots4().get(i).getX(),
-//                    (int)oRepository.getExtDots().getExtDots4().get(i).getY());
-//        }
     }
 }

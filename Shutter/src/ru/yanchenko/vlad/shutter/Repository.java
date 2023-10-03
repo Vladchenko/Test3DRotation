@@ -6,8 +6,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.Timer;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -73,7 +71,7 @@ public class Repository {
      */
     //** Number of dots present in one circle.
     private int dotsNumber = 150;
-    private int range = 600;
+    private int range = 900;
 
     /**
      * Timer that is in charge of computations done while balls are converging,
@@ -81,31 +79,25 @@ public class Repository {
      */
     private Timer tmrRendering;
 
-    //<editor-fold defaultstate="collapsed" desc="Strings that stand for a paths where an images of a render button reside">
-    private String strImgStartInitial = "pics/RenderButton/Start_Initial.png";
-    private String strImgStartHovered = "pics/RenderButton/Start_Hovered.png";
-    private String strImgStartPressed = "pics/RenderButton/Start_Pressed.png";
-    private String strImgPauseInitial = "pics/RenderButton/Pause_Initial.png";
-    private String strImgPauseHovered = "pics/RenderButton/Pause_Hovered.png";
-    private String strImgPausePressed = "pics/RenderButton/Pause_Pressed.png";
-    private String strImgContinueInitial = "pics/RenderButton/Continue_Initial.png";
-    private String strImgContinueHovered = "pics/RenderButton/Continue_Hovered.png";
-    private String strImgContinuePressed = "pics/RenderButton/Continue_Pressed.png";
-    private String strImgInitInitial = "pics/RenderButton/Init_Initial.png";
-    private String strImgInitHovered = "pics/RenderButton/Init_Hovered.png";
-    private String strImgInitPressed = "pics/RenderButton/Init_Pressed.png";
-//</editor-fold>
-    private Map<String, String> mapStrImages = new HashMap();
     //** In charge of an actual file that is to hold an image of a ball.
     private File fileImg;
 
     private ExtDots extDots = new ExtDots(dotsNumber);
     private final DekartPoint[] dekartPoints = new DekartPoint[dotsNumber];
+    private final Color[] colors = new Color[dotsNumber];
     public int inversionMultiplier = 1;
+
+    public Color[] getColors() {
+        return colors;
+    }
+
+    public int getRange() {
+        return range;
+    }
     //</editor-fold>
 
     //** Used to paint a canvas on.
-    private class frmDrawingBoard extends JFrame { }
+    private static class frmDrawingBoard extends JFrame { }
 
     private Repository() { }
     
@@ -117,7 +109,7 @@ public class Repository {
             oRepository = new Repository();
             Repository.oLogic = Logic.getInstance(oRepository);
             Repository.oDrawing = Drawing.getInstance(oRepository);
-            Repository.oFrmDrawingBoard = oRepository.new frmDrawingBoard();
+            Repository.oFrmDrawingBoard = new frmDrawingBoard();
 
             oRepository.initializeData();
 
@@ -126,7 +118,7 @@ public class Repository {
 
     }
 
-    //** Adding a listeneres to a frame
+    //** Adding a listeners to a frame
     private void addListeners(JFrame frame) {
         frame.addKeyListener(new FrameKeyListener());
         frame.addMouseListener(new FrameMouseListener());
@@ -205,11 +197,13 @@ public class Repository {
     private void initPoints() {
         for(int i=0; i < dekartPoints.length;i++) {
             dekartPoints[i] = new DekartPoint(
-                    Math.random() * range - range/2,
-                    Math.random() * range - range/2,
-                    Math.random() * range - range/2,
+                    Math.random() * getRange() - getRange() /2,
+                    Math.random() * getRange() - getRange() /2,
+                    Math.random() * getRange() - getRange() /2,
                     1);
-//            dekartPoints[0] = new DekartPoint(100,100,100, 1);
+            colors[i] = new Color((int)(Math.random() * 255),
+                    (int)(Math.random() * 255),
+                    (int)(Math.random() * 255));
         }
     }
 
