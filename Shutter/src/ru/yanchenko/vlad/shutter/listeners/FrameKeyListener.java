@@ -7,13 +7,18 @@ package ru.yanchenko.vlad.shutter.listeners;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import ru.yanchenko.vlad.shutter.GeometryUtils;
 import ru.yanchenko.vlad.shutter.Repository;
+import ru.yanchenko.vlad.shutter.data.DekartPoint;
 
 /**
  *
  * @author Влад
  */
 public class FrameKeyListener implements KeyListener {
+
+    private double angle = 0.03;
 
     private final Repository oRepository = Repository.getInstance();
 
@@ -36,16 +41,41 @@ public class FrameKeyListener implements KeyListener {
             oRepository.setKeyShift(true);
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_UP
-                || e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            oRepository.getoLogic().rotateByZ(0.01);
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            for(DekartPoint dekartPoint: oRepository.getPoints()) {
+                GeometryUtils.rotateByX(angle, dekartPoint);
+            }
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_DOWN
-                || e.getKeyCode() == KeyEvent.VK_LEFT) {
-            oRepository.getoLogic().rotateByZ(-0.01);
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            for(DekartPoint dekartPoint: oRepository.getPoints()) {
+                GeometryUtils.rotateByX(-angle, dekartPoint);
+            }
         }
-        
+
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            for(DekartPoint dekartPoint: oRepository.getPoints()) {
+                GeometryUtils.rotateByY(angle, dekartPoint);
+            }
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            for(DekartPoint dekartPoint: oRepository.getPoints()) {
+                GeometryUtils.rotateByY(-angle, dekartPoint);
+            }
+        }
+
+        if (e.getKeyCode() == '[') {
+            for(DekartPoint dekartPoint: oRepository.getPoints()) {
+                GeometryUtils.rotateByZ(angle, dekartPoint);
+            }
+        }
+
+        if (e.getKeyCode() == ']') {
+            for(DekartPoint dekartPoint: oRepository.getPoints()) {
+                GeometryUtils.rotateByZ(-angle, dekartPoint);
+            }
+        }
     }
 
     @Override

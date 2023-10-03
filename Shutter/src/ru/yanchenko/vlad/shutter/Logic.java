@@ -1,14 +1,9 @@
 package ru.yanchenko.vlad.shutter;
 
-import ru.yanchenko.vlad.shutter.data.SphericalPoint;
-
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-import javax.swing.Timer;
-
-import static ru.yanchenko.vlad.shutter.GeometryUtils.convertToDekart;
-import static ru.yanchenko.vlad.shutter.GeometryUtils.convertToSpherical;
 
 //** This class is in charge of a logic of a program */
 public class Logic {
@@ -74,26 +69,6 @@ public class Logic {
         }
 
         return new Timer(0, new TimerImpl());
-    }
-
-    /**
-     * Rotates a points over z axis for angle.
-     * Angle can be negative.
-     */
-    public void rotateByZ(double angle) {
-        SphericalPoint sphericalPoint;
-        for(int i =0; i < oRepository.getPoints().length; i++) {
-            sphericalPoint = convertToSpherical(oRepository.getPoints()[i]);
-            sphericalPoint.setPhi(sphericalPoint.getPhi() + angle);
-//            if (sphericalPoint.getPhi() > Math.PI / 2) {
-//                oRepository.inversionMultiplier *= -1;
-//            }
-//            if (sphericalPoint.getPhi() < -Math.PI / 2) {
-//                oRepository.inversionMultiplier *= -1;
-//            }
-            System.out.println(sphericalPoint.getPhi() / 3.1415926 * 180);
-            oRepository.getPoints()[i] = convertToDekart(sphericalPoint);
-        }
     }
 
 }

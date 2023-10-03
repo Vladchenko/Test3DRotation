@@ -73,6 +73,7 @@ public class Repository {
      */
     //** Number of dots present in one circle.
     private int dotsNumber = 150;
+    private int range = 600;
 
     /**
      * Timer that is in charge of computations done while balls are converging,
@@ -99,7 +100,7 @@ public class Repository {
     private File fileImg;
 
     private ExtDots extDots = new ExtDots(dotsNumber);
-    private final DekartPoint[] dekartPoints = new DekartPoint[50];
+    private final DekartPoint[] dekartPoints = new DekartPoint[dotsNumber];
     public int inversionMultiplier = 1;
     //</editor-fold>
 
@@ -119,7 +120,7 @@ public class Repository {
             Repository.oFrmDrawingBoard = oRepository.new frmDrawingBoard();
 
             oRepository.initializeData();
-            
+
         }
         return oRepository;
 
@@ -155,7 +156,6 @@ public class Repository {
         frame.setVisible(true);
         this.addListeners(oFrmDrawingBoard);
         frame.requestFocus();
-	// pack(); method might be of use, to pack a compnents of a frame.
     }
 
     //** Initializing some data - images, frame, adding listeners.
@@ -204,8 +204,12 @@ public class Repository {
 
     private void initPoints() {
         for(int i=0; i < dekartPoints.length;i++) {
-            dekartPoints[i] = new DekartPoint(Math.random() * 300 + 50, Math.random() * 300 + 50, Math.random() * 300 + 50);
-//            dekartPoints[0] = new DekartPoint(100,100,100);
+            dekartPoints[i] = new DekartPoint(
+                    Math.random() * range - range/2,
+                    Math.random() * range - range/2,
+                    Math.random() * range - range/2,
+                    1);
+//            dekartPoints[0] = new DekartPoint(100,100,100, 1);
         }
     }
 

@@ -1,39 +1,39 @@
 package ru.yanchenko.vlad.shutter;
 
 import ru.yanchenko.vlad.shutter.data.DekartPoint;
-import ru.yanchenko.vlad.shutter.data.SphericalPoint;
 
 /**
- * TODO
+ * Utils to operate with geometry.
  */
-public class GeometryUtils {
+public final class GeometryUtils {
 
-    /**
-     * TODO
-     * @param sphericalPoint
-     * @return
-     */
-    public static DekartPoint convertToDekart(SphericalPoint sphericalPoint) {
-        return new DekartPoint(
-                sphericalPoint.getRadius() * Math.sin(sphericalPoint.getTheta()) * Math.sin(sphericalPoint.getPhi()),
-                sphericalPoint.getRadius() * Math.sin(sphericalPoint.getTheta()) * Math.cos(sphericalPoint.getPhi()),
-                sphericalPoint.getRadius() * Math.cos(sphericalPoint.getTheta())
+    private GeometryUtils() {
+    }
+
+    public static void rotateByX(double angle, DekartPoint dekartPoint) {
+        dekartPoint.setY(
+                dekartPoint.getY() * Math.cos(angle) + dekartPoint.getZ() * Math.sin(angle)
+        );
+        dekartPoint.setZ(
+                - dekartPoint.getY() * Math.sin(angle) + dekartPoint.getZ() * Math.cos(angle)
         );
     }
 
-    /**
-     * TODO
-     * @param dekartPoint
-     * @return
-     */
-    public static SphericalPoint convertToSpherical(DekartPoint dekartPoint) {
-        double radius = Math.sqrt(dekartPoint.getX() * dekartPoint.getX()
-                + dekartPoint.getY() * dekartPoint.getY()
-                + dekartPoint.getZ() * dekartPoint.getZ());
-        return new SphericalPoint(
-                radius,
-                Math.acos(dekartPoint.getZ() / radius),
-                Math.atan(dekartPoint.getX() / dekartPoint.getY())
+    public static void rotateByY(double angle, DekartPoint dekartPoint) {
+        dekartPoint.setX(
+                dekartPoint.getX() * Math.cos(angle) + dekartPoint.getZ() * Math.sin(angle)
+        );
+        dekartPoint.setZ(
+                - dekartPoint.getX() * Math.sin(angle) + dekartPoint.getZ() * Math.cos(angle)
+        );
+    }
+
+    public static void rotateByZ(double angle, DekartPoint dekartPoint) {
+        dekartPoint.setX(
+                dekartPoint.getX() * Math.cos(angle) + dekartPoint.getY() * Math.sin(angle)
+        );
+        dekartPoint.setY(
+                - dekartPoint.getX() * Math.sin(angle) + dekartPoint.getY() * Math.cos(angle)
         );
     }
 }

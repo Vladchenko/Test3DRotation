@@ -52,13 +52,13 @@ public class Drawing extends JPanel {
 
 //        g.drawString("Sample text", oRepository.getPntScreenCenter().x,
 //                oRepository.getPntScreenCenter().y);
+        g2.setColor(Color.white);
         for (DekartPoint dekartPoint : oRepository.getPoints()) {
-            g2.setColor(Color.white);
-            g2.drawLine(
-                    oRepository.inversionMultiplier * (int) dekartPoint.getX() + oRepository.getScreenWidth() / 2,
-                    oRepository.inversionMultiplier * (int) dekartPoint.getY() + oRepository.getScreenHeight() / 2,
-                    oRepository.inversionMultiplier * (int) dekartPoint.getX() + oRepository.getScreenWidth() / 2,
-                    oRepository.inversionMultiplier * (int) dekartPoint.getY() + oRepository.getScreenHeight() / 2);
+            g2.drawOval(
+                    (int) dekartPoint.getX() + oRepository.getScreenWidth() / 2 - 2,
+                    (int) dekartPoint.getY() + oRepository.getScreenHeight() / 2 - 2,
+                    4,
+                    4);
 //            g2.setColor(Color.green);
 //            g2.drawLine((int)oRepository.getExtDots().getExtDots1().get(i).getX(),
 //                    (int)oRepository.getExtDots().getExtDots1().get(i).getY(),
