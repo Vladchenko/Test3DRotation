@@ -2,7 +2,6 @@ package ru.yanchenko.vlad.shutter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 
 public class Drawing extends JPanel {
 
@@ -48,22 +47,22 @@ public class Drawing extends JPanel {
 
         //** Put only a code that has to do with a drawing !
 
-        for (int i = 0; i < oRepository.getPoints().length; i++) {
-            radius = (oRepository.getPoints()[i].getZ() + oRepository.getRange()) / oRepository.getRange() * 20;
+        for (int i = 0; i < oRepository.getBalls().length; i++) {
+            radius = (oRepository.getBalls()[i].getDekartPoint().getZ() + oRepository.getRange()) / oRepository.getRange() * 20;
 
 
             RadialGradientPaint bgPaint = new RadialGradientPaint(
-                    (float) (oRepository.getPoints()[i].getX() + oRepository.getScreenWidth() / 2) - 1,
-                    (float) (oRepository.getPoints()[i].getY() + oRepository.getScreenHeight() / 2) - 1,
+                    (float) (oRepository.getBalls()[i].getDekartPoint().getX() + oRepository.getScreenWidth() / 2) - 1,
+                    (float) (oRepository.getBalls()[i].getDekartPoint().getY() + oRepository.getScreenHeight() / 2) - 1,
                     (float) radius / 2,
                     new float[] {0.1f, 1.0f},
-                    new Color[] {oRepository.getColors()[i], Color.BLACK});
+                    new Color[] {oRepository.getBalls()[i].getColor(), new Color(0,0,0,55)});
 
             g2.setPaint(bgPaint);
 
             g2.fillOval(
-                    (int) (oRepository.getPoints()[i].getX() + oRepository.getScreenWidth() / 2 - radius / 2),
-                    (int) (oRepository.getPoints()[i].getY() + oRepository.getScreenHeight() / 2 - radius / 2),
+                    (int) (oRepository.getBalls()[i].getDekartPoint().getX() + oRepository.getScreenWidth() / 2 - radius / 2),
+                    (int) (oRepository.getBalls()[i].getDekartPoint().getY() + oRepository.getScreenHeight() / 2 - radius / 2),
                     (int) radius,
                     (int) radius);
 

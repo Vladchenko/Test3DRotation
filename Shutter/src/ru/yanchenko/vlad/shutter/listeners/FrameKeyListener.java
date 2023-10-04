@@ -7,13 +7,14 @@ package ru.yanchenko.vlad.shutter.listeners;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Arrays;
 
-import ru.yanchenko.vlad.shutter.GeometryUtils;
+import ru.yanchenko.vlad.shutter.utils.GeometryUtils;
 import ru.yanchenko.vlad.shutter.Repository;
-import ru.yanchenko.vlad.shutter.data.DekartPoint;
+import ru.yanchenko.vlad.shutter.data.Ball;
+import ru.yanchenko.vlad.shutter.utils.PointComparator;
 
 /**
- *
  * @author Влад
  */
 public class FrameKeyListener implements KeyListener {
@@ -42,40 +43,42 @@ public class FrameKeyListener implements KeyListener {
         }
 
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            for(DekartPoint dekartPoint: oRepository.getPoints()) {
-                GeometryUtils.rotateByX(angle, dekartPoint);
+            for (Ball Ball : oRepository.getBalls()) {
+                GeometryUtils.rotateByX(angle, Ball);
             }
         }
 
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            for(DekartPoint dekartPoint: oRepository.getPoints()) {
-                GeometryUtils.rotateByX(-angle, dekartPoint);
+            for (Ball Ball : oRepository.getBalls()) {
+                GeometryUtils.rotateByX(-angle, Ball);
             }
         }
 
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            for(DekartPoint dekartPoint: oRepository.getPoints()) {
-                GeometryUtils.rotateByY(angle, dekartPoint);
+            for (Ball Ball : oRepository.getBalls()) {
+                GeometryUtils.rotateByY(angle, Ball);
             }
         }
 
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            for(DekartPoint dekartPoint: oRepository.getPoints()) {
-                GeometryUtils.rotateByY(-angle, dekartPoint);
+            for (Ball Ball : oRepository.getBalls()) {
+                GeometryUtils.rotateByY(-angle, Ball);
             }
         }
 
         if (e.getKeyCode() == '[') {
-            for(DekartPoint dekartPoint: oRepository.getPoints()) {
-                GeometryUtils.rotateByZ(angle, dekartPoint);
+            for (Ball Ball : oRepository.getBalls()) {
+                GeometryUtils.rotateByZ(angle, Ball);
             }
         }
 
         if (e.getKeyCode() == ']') {
-            for(DekartPoint dekartPoint: oRepository.getPoints()) {
-                GeometryUtils.rotateByZ(-angle, dekartPoint);
+            for (Ball Ball : oRepository.getBalls()) {
+                GeometryUtils.rotateByZ(-angle, Ball);
             }
         }
+
+        Arrays.sort(oRepository.getBalls(), new PointComparator());
     }
 
     @Override
@@ -98,7 +101,7 @@ public class FrameKeyListener implements KeyListener {
 
         if (e.getKeyCode() == KeyEvent.VK_DOWN
                 || e.getKeyCode() == KeyEvent.VK_LEFT) {
-        }        
+        }
     }
 
 }

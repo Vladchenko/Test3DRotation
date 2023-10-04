@@ -10,6 +10,7 @@ import javax.swing.Timer;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import ru.yanchenko.vlad.shutter.data.Ball;
 import ru.yanchenko.vlad.shutter.data.DekartPoint;
 import ru.yanchenko.vlad.shutter.generics.ExtDots;
 import ru.yanchenko.vlad.shutter.listeners.FrameKeyListener;
@@ -50,7 +51,7 @@ public class Repository {
     private int screenHeight = (int) screenSize.getHeight();
     //** Center of a plane (screen)
     private Point pntScreenCenter
-            = new Point(screenWidth / 2, screenHeight / 2);    
+            = new Point(screenWidth / 2, screenHeight / 2);
     /**
      * When full screen is off, then following fields stand for a size of a
      * window
@@ -66,7 +67,7 @@ public class Repository {
 
     //<editor-fold defaultstate="collapsed" desc="User related fields">
     /**
-     * Put to this area a fields that has to do with a problem realised in a 
+     * Put to this area a fields that has to do with a problem realised in a
      * program itself.
      */
     //** Number of dots present in one circle.
@@ -83,7 +84,7 @@ public class Repository {
     private File fileImg;
 
     private ExtDots extDots = new ExtDots(dotsNumber);
-    private final DekartPoint[] dekartPoints = new DekartPoint[dotsNumber];
+    private Ball[] balls = new Ball[dotsNumber];
     private final Color[] colors = new Color[dotsNumber];
     public int inversionMultiplier = 1;
 
@@ -94,13 +95,19 @@ public class Repository {
     public int getRange() {
         return range;
     }
+
+    public void setBalls(Ball[] balls) {
+        this.balls = balls;
+    }
     //</editor-fold>
 
     //** Used to paint a canvas on.
-    private static class frmDrawingBoard extends JFrame { }
+    private static class frmDrawingBoard extends JFrame {
+    }
 
-    private Repository() { }
-    
+    private Repository() {
+    }
+
     //** Retrieving an object of a Repository
     public static Repository getInstance() {
 
@@ -156,9 +163,9 @@ public class Repository {
         //** Put an initialization code here */
         if (oRepository.isFullScreen()) {
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            oRepository.pntScreenCenter.x = (int) 
+            oRepository.pntScreenCenter.x = (int)
                     screenSize.getWidth() / 2;
-            oRepository.pntScreenCenter.y = (int) 
+            oRepository.pntScreenCenter.y = (int)
                     screenSize.getHeight() / 2;
             oRepository.setScreenWidth((int) screenSize.getWidth());
             oRepository.setScreenHeight((int) screenSize.getHeight());
@@ -178,7 +185,7 @@ public class Repository {
         extDots.placeExtDots(
                 oRepository.getPntScreenCenter().x,
                 oRepository.getPntScreenCenter().y);
-        
+
         //** Hiding mouse cursor
 //        oRepository.getoDrawing().setCursor(
 //                    oRepository.getoDrawing().getToolkit().createCustomCursor(
@@ -190,20 +197,20 @@ public class Repository {
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
 
-    public DekartPoint[] getPoints() {
-        return dekartPoints;
+    public Ball[] getBalls() {
+        return balls;
     }
 
     private void initPoints() {
-        for(int i=0; i < dekartPoints.length;i++) {
-            dekartPoints[i] = new DekartPoint(
-                    Math.random() * getRange() - getRange() /2,
-                    Math.random() * getRange() - getRange() /2,
-                    Math.random() * getRange() - getRange() /2,
-                    1);
-            colors[i] = new Color((int)(Math.random() * 255),
-                    (int)(Math.random() * 255),
-                    (int)(Math.random() * 255));
+        for (int i = 0; i < balls.length; i++) {
+            balls[i] = new Ball(new DekartPoint(
+                            Math.random() * getRange() - getRange() / 2,
+                            Math.random() * getRange() - getRange() / 2,
+                            Math.random() * getRange() - getRange() / 2,
+                            1),
+                    new Color((int) (Math.random() * 255),
+                            (int) (Math.random() * 255),
+                            (int) (Math.random() * 255)));
         }
     }
 
@@ -398,6 +405,6 @@ public class Repository {
     public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
-   
+
 //</editor-fold>    
 }
