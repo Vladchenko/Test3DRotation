@@ -8,16 +8,6 @@ public class DekartPoint {
     private double y;
     private double z;
 
-    public double getInversionMultiplier() {
-        return inversionMultiplier;
-    }
-
-    public void setInversionMultiplier(double inversionMultiplier) {
-        this.inversionMultiplier = inversionMultiplier;
-    }
-
-    private double inversionMultiplier = 1;
-
     public double getX() {
         return x;
     }
@@ -42,10 +32,9 @@ public class DekartPoint {
         this.z = z;
     }
 
-    public DekartPoint(double x, double y, double z, double inversionMultiplier) {
+    public DekartPoint(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.inversionMultiplier = inversionMultiplier;
     }
 }

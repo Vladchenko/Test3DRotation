@@ -8,32 +8,26 @@ import java.util.Date;
 //** This class is in charge of a logic of a program */
 public class Logic {
 
-    private static Repository oRepository;
-
+    private static Repository repository;
 
     /**
      * Constructor is done private, for it could not be instantiated anywhere
      * besides "getInstance" method.
      */
     private Logic() {
-        oRepository.setTmrRendering(tmrRendering());
-        oRepository.getTmrRendering().start();
+        repository.setTmrRendering(tmrRendering());
+        repository.getTmrRendering().start();
     }
 
-
     public static synchronized Logic getInstance(Repository Repository_) {
-        oRepository = Repository_;
+        repository = Repository_;
         if (Repository_.getoLogic() == null) {
             Repository_.setoLogic(new Logic());
         }
         return Repository_.getoLogic();
     }
 
-    /**
-     * Timer that runs the basic logic for a program.
-     *
-     * @return
-     */
+    /** @return Timer that runs the basic logic for a program. */
     private Timer tmrRendering() {
 
         class TimerImpl implements ActionListener {
@@ -41,29 +35,27 @@ public class Logic {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                //* Put here a code done for each frame to be drawn in paintComponent (on a screen).
+
                 //** Recording a time when a computations for each frame begin
-                oRepository.setEndTime((new Date()).getTime());
+                repository.setEndTime((new Date()).getTime());
 
-                /**
-                 * Put here a code done for each frame to be drawn in
-                 * paintComponent (on a screen).
-                 */
-                oRepository.getExtDots().moveExtDots(
-                        oRepository.getPntScreenCenter().x,
-                        oRepository.getPntScreenCenter().y);
-                //** Repainting a screen
-                oRepository.getoDrawing().repaint();
+                repository.getExtDots().moveExtDots(
+                        repository.getPntScreenCenter().x,
+                        repository.getPntScreenCenter().y);
+                //* Repainting a screen
+                repository.getDrawing().repaint();
 
-                //** Increasing frames count in 1.
-                oRepository.setFps(oRepository.getFps() + 1);
-                if ((oRepository.getEndTime() - oRepository.getBeginTime())
-                        >= oRepository.getFpsUpdateTimeOut()) {
-                    //** Recording a time when a computations for each frame end
-                    oRepository.setBeginTime((new Date()).getTime());
-                    //** Such a calculation is required due to a variative fps measurement time
-                    oRepository.getLblFPS().setText("FPS: " + oRepository.getFps()
-                            * (1000 / oRepository.getFpsUpdateTimeOut()));
-                    oRepository.setFps(0);
+                //* Increasing frames count in 1.
+                repository.setFps(repository.getFps() + 1);
+                if ((repository.getEndTime() - repository.getBeginTime())
+                        >= repository.getFpsUpdateTimeOut()) {
+                    //* Recording a time when a computations for each frame end
+                    repository.setBeginTime((new Date()).getTime());
+                    //* Such a calculation is required due to a variative fps measurement time
+                    repository.getLblFPS().setText("FPS: " + repository.getFps()
+                            * (1000 / repository.getFpsUpdateTimeOut()));
+                    repository.setFps(0);
                 }
             }
         }

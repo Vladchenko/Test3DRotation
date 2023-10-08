@@ -78,7 +78,7 @@ public class FrameKeyListener implements KeyListener {
             }
         }
 
-        Arrays.sort(oRepository.getBalls(), new PointComparator());
+//        Arrays.sort(oRepository.getBalls(), new PointComparator());
     }
 
     @Override

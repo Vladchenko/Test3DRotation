@@ -6,9 +6,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
 import java.util.Date;
-import javax.swing.Timer;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 import ru.yanchenko.vlad.shutter.data.Ball;
 import ru.yanchenko.vlad.shutter.data.DekartPoint;
@@ -17,6 +15,7 @@ import ru.yanchenko.vlad.shutter.listeners.FrameKeyListener;
 import ru.yanchenko.vlad.shutter.listeners.FrameMouseListener;
 import ru.yanchenko.vlad.shutter.listeners.FrameMouseMotionListener;
 import ru.yanchenko.vlad.shutter.listeners.FrameMouseWheelListener;
+import ru.yanchenko.vlad.shutter.reprensetation.CubeDrawingPanel;
 
 public class Repository {
 
@@ -62,7 +61,7 @@ public class Repository {
     private static Repository oRepository;
     private static frmDrawingBoard oFrmDrawingBoard;
     private static Logic oLogic;
-    private static Drawing oDrawing;
+    private static JPanel drawingPanel;
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="User related fields">
@@ -84,8 +83,8 @@ public class Repository {
     private File fileImg;
 
     private ExtDots extDots = new ExtDots(dotsNumber);
-    private Ball[] balls = new Ball[dotsNumber];
-    private final Color[] colors = new Color[dotsNumber];
+    private Ball[] balls = new Ball[8];
+    private final Color[] colors = new Color[8];
     public int inversionMultiplier = 1;
 
     public Color[] getColors() {
@@ -115,7 +114,7 @@ public class Repository {
 
             oRepository = new Repository();
             Repository.oLogic = Logic.getInstance(oRepository);
-            Repository.oDrawing = Drawing.getInstance(oRepository);
+            Repository.drawingPanel = CubeDrawingPanel.getInstance(oRepository);
             Repository.oFrmDrawingBoard = new frmDrawingBoard();
 
             oRepository.initializeData();
@@ -138,7 +137,7 @@ public class Repository {
         frame.setSize(oRepository.getScreenWidth(),
                 oRepository.getScreenHeight());
         frame.setLocationRelativeTo(null);
-        frame.setContentPane(oRepository.getoDrawing());
+        frame.setContentPane(oRepository.getDrawing());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         if (!oRepository.isWindowFrame()) {
             frame.setUndecorated(true);
@@ -177,7 +176,7 @@ public class Repository {
         this.initializeFrame(oFrmDrawingBoard);
 
         //** Setting a background for a canvas (screen)
-        oDrawing.setBackground(
+        drawingPanel.setBackground(
                 oRepository.getClrWindowBackground()
         );
 
@@ -192,7 +191,8 @@ public class Repository {
 //                            new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB),
 //                            new Point(0, 0),
 //                            "null"));
-        initPoints();
+//        randomizePoints();
+        createAndPlaceBallsAsCube();
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
@@ -201,17 +201,59 @@ public class Repository {
         return balls;
     }
 
-    private void initPoints() {
+    private void randomizePoints() {
         for (int i = 0; i < balls.length; i++) {
             balls[i] = new Ball(new DekartPoint(
                             Math.random() * getRange() - getRange() / 2,
                             Math.random() * getRange() - getRange() / 2,
-                            Math.random() * getRange() - getRange() / 2,
-                            1),
+                            Math.random() * getRange() - getRange() / 2),
                     new Color((int) (Math.random() * 255),
                             (int) (Math.random() * 255),
                             (int) (Math.random() * 255)));
         }
+    }
+
+    private void createAndPlaceBallsAsCube() {
+        balls[0] = new Ball(new DekartPoint(
+                300,
+                300,
+                300),
+                Color.WHITE);
+        balls[1] = new Ball(new DekartPoint(
+                -300,
+                300,
+                300),
+                Color.WHITE);
+        balls[2] = new Ball(new DekartPoint(
+                -300,
+                -300,
+                300),
+                Color.WHITE);
+        balls[3] = new Ball(new DekartPoint(
+                300,
+                -300,
+                300),
+                Color.WHITE);
+        balls[4] = new Ball(new DekartPoint(
+                300,
+                300,
+                -300),
+                Color.WHITE);
+        balls[5] = new Ball(new DekartPoint(
+                -300,
+                300,
+                -300),
+                Color.WHITE);
+        balls[6] = new Ball(new DekartPoint(
+                -300,
+                -300,
+                -300),
+                Color.WHITE);
+        balls[7] = new Ball(new DekartPoint(
+                300,
+                -300,
+                -300),
+                Color.WHITE);
     }
 
     public ExtDots getExtDots() {
@@ -246,12 +288,12 @@ public class Repository {
         this.oLogic = oLogic;
     }
 
-    public Drawing getoDrawing() {
-        return oDrawing;
+    public JPanel getDrawing() {
+        return drawingPanel;
     }
 
-    public void setoDrawing(Drawing oDrawing) {
-        this.oDrawing = oDrawing;
+    public void setDrawing(JPanel oDrawingPanel) {
+        this.drawingPanel = oDrawingPanel;
     }
 
     public Point getPntScreenCenter() {
