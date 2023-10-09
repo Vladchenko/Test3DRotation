@@ -1,7 +1,7 @@
-package ru.yanchenko.vlad.test3drotation.representation;
+package ru.yanchenko.vlad.shutter.representation;
 
-import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
-import ru.yanchenko.vlad.test3drotation.data.ScreenData;
+import ru.yanchenko.vlad.shutter.data.ColoredPoint;
+import ru.yanchenko.vlad.shutter.data.ScreenData;
 
 import javax.swing.*;
 import java.awt.*;

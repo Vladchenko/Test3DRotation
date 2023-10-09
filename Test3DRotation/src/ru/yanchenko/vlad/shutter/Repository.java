@@ -1,26 +1,30 @@
-package ru.yanchenko.vlad.test3drotation;
+package ru.yanchenko.vlad.shutter;
 
-import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
-import ru.yanchenko.vlad.test3drotation.data.ScreenData;
-import ru.yanchenko.vlad.test3drotation.listeners.FrameKeyListener;
-import ru.yanchenko.vlad.test3drotation.listeners.KeyEventCallback;
-import ru.yanchenko.vlad.test3drotation.representation.BallsDrawingPanel;
-import ru.yanchenko.vlad.test3drotation.representation.CubeDrawingPanel;
-import ru.yanchenko.vlad.test3drotation.representation.DrawingFrame;
-import ru.yanchenko.vlad.test3drotation.utils.GeometryUtils;
-import ru.yanchenko.vlad.test3drotation.utils.PointComparator;
+import ru.yanchenko.vlad.shutter.data.ColoredPoint;
+import ru.yanchenko.vlad.shutter.data.ScreenData;
+import ru.yanchenko.vlad.shutter.listeners.FrameKeyListener;
+import ru.yanchenko.vlad.shutter.listeners.FrameMouseMotionListener;
+import ru.yanchenko.vlad.shutter.listeners.KeyEventCallback;
+import ru.yanchenko.vlad.shutter.listeners.MouseDraggedEventCallback;
+import ru.yanchenko.vlad.shutter.representation.BallsDrawingPanel;
+import ru.yanchenko.vlad.shutter.representation.CubeDrawingPanel;
+import ru.yanchenko.vlad.shutter.representation.DrawingFrame;
+import ru.yanchenko.vlad.shutter.utils.GeometryUtils;
+import ru.yanchenko.vlad.shutter.utils.PointComparator;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
-import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.createAndPlaceBallsAsCube;
-import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.randomizeBalls;
+import static ru.yanchenko.vlad.shutter.utils.BallsGenerationUtils.createAndPlaceBallsAsCube;
+import static ru.yanchenko.vlad.shutter.utils.BallsGenerationUtils.randomizeBalls;
 
 /**
  * TODO
  */
-public class Repository implements KeyEventCallback {
+public class Repository implements KeyEventCallback, MouseDraggedEventCallback {
 
     //region Fields
     private ColoredPoint[] coloredPoints;
@@ -47,6 +51,7 @@ public class Repository implements KeyEventCallback {
         this.screenData = screenData;
         this.drawingFrame = drawingFrame;
         this.drawingFrame.setKeyListener(new FrameKeyListener(this));
+        this.drawingFrame.setMouseMotionListener(new FrameMouseMotionListener(this));
     }
 
 
@@ -106,4 +111,24 @@ public class Repository implements KeyEventCallback {
         }
         drawingFrame.repaint();
     }
+
+    @Override
+    public void getMouseDelta(Point point) {
+        for (ColoredPoint coloredPoint : coloredPoints) {
+            GeometryUtils.rotateByX(point.getX() / 100.0, coloredPoint);
+        }
+        for (ColoredPoint coloredPoint : coloredPoints) {
+            GeometryUtils.rotateByY(point.getY() / 100.0, coloredPoint);
+        }
+        JPanel panel;
+        if (presentationMode % 2 == 0) {
+            panel = new CubeDrawingPanel(coloredPoints, screenData);
+        } else {
+            Arrays.sort(coloredPoints, new PointComparator());
+            panel = new BallsDrawingPanel(coloredPoints, screenData, range);
+        }
+        drawingFrame.setContentPane(panel);
+        drawingFrame.setVisible(true);
+    }
+
 }

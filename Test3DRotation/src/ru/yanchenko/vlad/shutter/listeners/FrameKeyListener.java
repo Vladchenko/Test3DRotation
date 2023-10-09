@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.yanchenko.vlad.test3drotation.listeners;
+package ru.yanchenko.vlad.shutter.listeners;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

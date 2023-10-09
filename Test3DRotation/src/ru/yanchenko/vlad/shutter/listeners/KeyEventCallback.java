@@ -1,4 +1,4 @@
-package ru.yanchenko.vlad.test3drotation.listeners;
+package ru.yanchenko.vlad.shutter.listeners;
 
 import java.awt.event.KeyEvent;
 

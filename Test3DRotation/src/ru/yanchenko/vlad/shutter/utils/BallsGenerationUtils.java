@@ -1,7 +1,7 @@
-package ru.yanchenko.vlad.test3drotation.utils;
+package ru.yanchenko.vlad.shutter.utils;
 
-import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
-import ru.yanchenko.vlad.test3drotation.data.DekartPoint;
+import ru.yanchenko.vlad.shutter.data.ColoredPoint;
+import ru.yanchenko.vlad.shutter.data.DekartPoint;
 
 import java.awt.*;
 import java.util.Random;

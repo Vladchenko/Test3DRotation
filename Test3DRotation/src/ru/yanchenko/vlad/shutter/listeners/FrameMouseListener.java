@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.yanchenko.vlad.test3drotation.listeners;
+package ru.yanchenko.vlad.shutter.listeners;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,20 +13,24 @@ import java.awt.event.MouseListener;
  */
 public class FrameMouseListener implements MouseListener {
 
+    private final MouseClickedEventCallback mouseClickedEventCallback;
+
     /**
      * TODO
      * @param
      */
-    public FrameMouseListener() {
+    public FrameMouseListener(MouseClickedEventCallback mouseClickedEventCallback) {
+        this.mouseClickedEventCallback = mouseClickedEventCallback;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        // Not used
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // Not used
+        mouseClickedEventCallback.getMouseClickedEvent(e);
     }
 
     @Override
