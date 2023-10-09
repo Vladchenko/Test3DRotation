@@ -1,21 +1,21 @@
-package ru.yanchenko.vlad.shutter.data;
+package ru.yanchenko.vlad.test3drotation.data;
 
 import java.awt.*;
 
 /**
- * TODO
+ * Dekart point that also has a color
  */
-public class Ball {
+public class ColoredPoint {
     private DekartPoint dekartPoint;
     private Color color;
 
     /**
-     * TODO
+     * Public constructor. Sets params and creates an instance.
      *
      * @param dekartPoint
      * @param color
      */
-    public Ball(DekartPoint dekartPoint, Color color) {
+    public ColoredPoint(DekartPoint dekartPoint, Color color) {
         this.setDekartPoint(dekartPoint);
         this.setColor(color);
     }
