@@ -1,8 +1,8 @@
-package ru.yanchenko.vlad.shutter.representation;
+package ru.yanchenko.vlad.test3drotation.representation;
 
-import ru.yanchenko.vlad.shutter.data.ScreenData;
-import ru.yanchenko.vlad.shutter.listeners.FrameKeyListener;
-import ru.yanchenko.vlad.shutter.listeners.FrameMouseMotionListener;
+import ru.yanchenko.vlad.test3drotation.data.ScreenData;
+import ru.yanchenko.vlad.test3drotation.listeners.FrameKeyListener;
+import ru.yanchenko.vlad.test3drotation.listeners.FrameMouseMotionListener;
 
 import javax.swing.*;
 import java.awt.*;

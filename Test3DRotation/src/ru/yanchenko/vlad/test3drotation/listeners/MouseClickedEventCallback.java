@@ -1,4 +1,4 @@
-package ru.yanchenko.vlad.shutter.listeners;
+package ru.yanchenko.vlad.test3drotation.listeners;
 
 import java.awt.event.MouseEvent;
 

@@ -1,6 +1,6 @@
-package ru.yanchenko.vlad.shutter.utils;
+package ru.yanchenko.vlad.test3drotation.utils;
 
-import ru.yanchenko.vlad.shutter.data.ColoredPoint;
+import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
 
 import java.util.Comparator;
 

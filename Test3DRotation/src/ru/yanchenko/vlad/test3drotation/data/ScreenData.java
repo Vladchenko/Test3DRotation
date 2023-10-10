@@ -1,4 +1,4 @@
-package ru.yanchenko.vlad.shutter.data;
+package ru.yanchenko.vlad.test3drotation.data;
 
 import java.awt.*;
 

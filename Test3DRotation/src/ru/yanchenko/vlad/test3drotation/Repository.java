@@ -1,25 +1,24 @@
-package ru.yanchenko.vlad.shutter;
+package ru.yanchenko.vlad.test3drotation;
 
-import ru.yanchenko.vlad.shutter.data.ColoredPoint;
-import ru.yanchenko.vlad.shutter.data.ScreenData;
-import ru.yanchenko.vlad.shutter.listeners.FrameKeyListener;
-import ru.yanchenko.vlad.shutter.listeners.FrameMouseMotionListener;
-import ru.yanchenko.vlad.shutter.listeners.KeyEventCallback;
-import ru.yanchenko.vlad.shutter.listeners.MouseDraggedEventCallback;
-import ru.yanchenko.vlad.shutter.representation.BallsDrawingPanel;
-import ru.yanchenko.vlad.shutter.representation.CubeDrawingPanel;
-import ru.yanchenko.vlad.shutter.representation.DrawingFrame;
-import ru.yanchenko.vlad.shutter.utils.GeometryUtils;
-import ru.yanchenko.vlad.shutter.utils.PointComparator;
+import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
+import ru.yanchenko.vlad.test3drotation.data.ScreenData;
+import ru.yanchenko.vlad.test3drotation.listeners.FrameKeyListener;
+import ru.yanchenko.vlad.test3drotation.listeners.FrameMouseMotionListener;
+import ru.yanchenko.vlad.test3drotation.listeners.KeyEventCallback;
+import ru.yanchenko.vlad.test3drotation.listeners.MouseDraggedEventCallback;
+import ru.yanchenko.vlad.test3drotation.representation.BallsDrawingPanel;
+import ru.yanchenko.vlad.test3drotation.representation.CubeDrawingPanel;
+import ru.yanchenko.vlad.test3drotation.representation.DrawingFrame;
+import ru.yanchenko.vlad.test3drotation.utils.GeometryUtils;
+import ru.yanchenko.vlad.test3drotation.utils.PointComparator;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
-import static ru.yanchenko.vlad.shutter.utils.BallsGenerationUtils.createAndPlaceBallsAsCube;
-import static ru.yanchenko.vlad.shutter.utils.BallsGenerationUtils.randomizeBalls;
+import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.createAndPlaceBallsAsCube;
+import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.randomizeBalls;
 
 /**
  * TODO
