@@ -1,24 +1,16 @@
 package ru.yanchenko.vlad.test3drotation;
 
 import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
-import ru.yanchenko.vlad.test3drotation.data.ScreenData;
 import ru.yanchenko.vlad.test3drotation.listeners.FrameKeyListener;
 import ru.yanchenko.vlad.test3drotation.listeners.FrameMouseMotionListener;
 import ru.yanchenko.vlad.test3drotation.listeners.KeyEventCallback;
 import ru.yanchenko.vlad.test3drotation.listeners.MouseDraggedEventCallback;
-import ru.yanchenko.vlad.test3drotation.representation.BallsDrawingPanel;
-import ru.yanchenko.vlad.test3drotation.representation.CubeDrawingPanel;
 import ru.yanchenko.vlad.test3drotation.representation.DrawingFrame;
+import ru.yanchenko.vlad.test3drotation.representation.DrawingType;
 import ru.yanchenko.vlad.test3drotation.utils.GeometryUtils;
-import ru.yanchenko.vlad.test3drotation.utils.PointComparator;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.Arrays;
-
-import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.createAndPlaceBallsAsCube;
-import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.randomizeBalls;
 
 /**
  * TODO
@@ -26,14 +18,9 @@ import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.random
 public class Repository implements KeyEventCallback, MouseDraggedEventCallback {
 
     //region Fields
+    private final double angle = 0.03;
     private ColoredPoint[] coloredPoints;
-    // Range in px that balls will be scattered within.
-    private final int range = 900;
-    private int presentationMode = 0;
-    // Number of dots present in one circle.
-    private final int ballsNumber = 100;
-
-    private final ScreenData screenData;
+    private DrawingType drawingType = DrawingType.BALLS;
 
     private final DrawingFrame drawingFrame;
     //endregion Fields
@@ -41,23 +28,19 @@ public class Repository implements KeyEventCallback, MouseDraggedEventCallback {
     /**
      * Public constructor. Sets params and creates an instance.
      *
-     * @param screenData    to know screen width, height, center
      * @param drawingFrame  to draw graphics on
      * @param coloredPoints to draw on a JFrame
      */
-    public Repository(ScreenData screenData, DrawingFrame drawingFrame, ColoredPoint[] coloredPoints) {
-        this.coloredPoints = coloredPoints;
-        this.screenData = screenData;
+    public Repository(DrawingFrame drawingFrame,
+                      ColoredPoint[] coloredPoints) {
         this.drawingFrame = drawingFrame;
+        this.coloredPoints = coloredPoints;
         this.drawingFrame.setKeyListener(new FrameKeyListener(this));
         this.drawingFrame.setMouseMotionListener(new FrameMouseMotionListener(this));
     }
 
-
     @Override
     public void getKeyEvent(KeyEvent keyEvent) {
-
-        double angle = 0.03;
         if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
             for (ColoredPoint ColoredPoint : coloredPoints) {
                 GeometryUtils.rotateByX(angle, ColoredPoint);
@@ -95,18 +78,7 @@ public class Repository implements KeyEventCallback, MouseDraggedEventCallback {
         }
 
         if (keyEvent.getKeyCode() == ' ') {
-            JPanel panel;
-            presentationMode++;
-            if (presentationMode % 2 == 0) {
-                coloredPoints = createAndPlaceBallsAsCube();
-                panel = new CubeDrawingPanel(coloredPoints, screenData);
-            } else {
-                coloredPoints = randomizeBalls(ballsNumber, range);
-                Arrays.sort(coloredPoints, new PointComparator());
-                panel = new BallsDrawingPanel(coloredPoints, screenData, range);
-            }
-            drawingFrame.setContentPane(panel);
-            drawingFrame.setVisible(true);
+            defineDrawContentAndDraw();
         }
         drawingFrame.repaint();
     }
@@ -119,15 +91,16 @@ public class Repository implements KeyEventCallback, MouseDraggedEventCallback {
         for (ColoredPoint coloredPoint : coloredPoints) {
             GeometryUtils.rotateByY(point.getY() / 100.0, coloredPoint);
         }
-        JPanel panel;
-        if (presentationMode % 2 == 0) {
-            panel = new CubeDrawingPanel(coloredPoints, screenData);
-        } else {
-            Arrays.sort(coloredPoints, new PointComparator());
-            panel = new BallsDrawingPanel(coloredPoints, screenData, range);
-        }
-        drawingFrame.setContentPane(panel);
-        drawingFrame.setVisible(true);
+        defineDrawContentAndDraw();
     }
 
+    private void defineDrawContentAndDraw() {
+        if (drawingType == DrawingType.CUBE) {
+            coloredPoints = drawingFrame.drawContents(DrawingType.CUBE);
+            drawingType = DrawingType.BALLS;
+        } else {
+            coloredPoints = drawingFrame.drawContents(DrawingType.BALLS);
+            drawingType = DrawingType.CUBE;
+        }
+    }
 }
