@@ -3,7 +3,7 @@ package ru.yanchenko.vlad.test3drotation.data;
 import java.awt.*;
 
 /**
- * Dekart point that also has a color
+ * 3D dekart point that also has a color
  */
 public class ColoredPoint {
     private DekartPoint dekartPoint;

@@ -5,15 +5,16 @@ import ru.yanchenko.vlad.test3drotation.data.ScreenData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 /**
- * TODO
+ * Panel to draw graphical cube.
  */
 public class CubeDrawingPanel extends JPanel {
 
     private final int xShift;
     private final int yShift;
-    private final ColoredPoint[] coloredPoints;
+    private final List<ColoredPoint> coloredPoints;
     private final float[] cubeRibGradientThresholds = new float[]{0.0f, 0.4f, 0.6f, 1.0f};
     private final Color[] cubeRibGradientColors = new Color[]{
             new Color(255, 255, 255, 255),
@@ -23,11 +24,13 @@ public class CubeDrawingPanel extends JPanel {
     };
 
     /**
-     * TODO
-     * @param coloredPoints
+     * Public constructor. Sets params and creates an instance.
+     *
+     * @param coloredPointsList of points to be drawn on a JPanel
+     * @param screenData        to provide screen width, height, center point
      */
-    public CubeDrawingPanel(ColoredPoint[] coloredPoints, ScreenData screenData) {
-        this.coloredPoints = coloredPoints;
+    public CubeDrawingPanel(List<ColoredPoint> coloredPointsList, ScreenData screenData) {
+        this.coloredPoints = coloredPointsList;
         this.xShift = screenData.getScreenCenterPoint().x;
         this.yShift = screenData.getScreenCenterPoint().y;
         this.setBackground(screenData.getWindowBackgroundColor());
@@ -61,14 +64,14 @@ public class CubeDrawingPanel extends JPanel {
         drawCubeRib(coloredPoints, g2, 7, 4);
     }
 
-    private void drawCubeRib(ColoredPoint[] coloredPoints, Graphics2D g2, int ball1Index, int ball2Index) {
-        if (coloredPoints[ball1Index].getDekartPoint().getX() != coloredPoints[ball2Index].getDekartPoint().getX()
-                || coloredPoints[ball1Index].getDekartPoint().getY() != coloredPoints[ball2Index].getDekartPoint().getY()) {
+    private void drawCubeRib(List<ColoredPoint> coloredPoints, Graphics2D g2, int ball1Index, int ball2Index) {
+        if (coloredPoints.get(ball1Index).getDekartPoint().getX() != coloredPoints.get(ball2Index).getDekartPoint().getX()
+                || coloredPoints.get(ball1Index).getDekartPoint().getY() != coloredPoints.get(ball2Index).getDekartPoint().getY()) {
 
-            double x1 = coloredPoints[ball1Index].getDekartPoint().getX() + xShift;
-            double y1 = coloredPoints[ball1Index].getDekartPoint().getY() + yShift;
-            double x2 = coloredPoints[ball2Index].getDekartPoint().getX() + xShift;
-            double y2 = coloredPoints[ball2Index].getDekartPoint().getY() + yShift;
+            double x1 = coloredPoints.get(ball1Index).getDekartPoint().getX() + xShift;
+            double y1 = coloredPoints.get(ball1Index).getDekartPoint().getY() + yShift;
+            double x2 = coloredPoints.get(ball2Index).getDekartPoint().getX() + xShift;
+            double y2 = coloredPoints.get(ball2Index).getDekartPoint().getY() + yShift;
 
             LinearGradientPaint gradientPaint = new LinearGradientPaint(
                     (float) x1, (float) y1, (float) x2, (float) y2,

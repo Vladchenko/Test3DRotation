@@ -5,26 +5,30 @@ import ru.yanchenko.vlad.test3drotation.data.ScreenData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 /**
- * TODO
+ * JPanel to draw balls (colored points) on itself.
  */
 public class BallsDrawingPanel extends JPanel {
 
     private final int range;
     private final int xShift;
     private final int yShift;
-    private final ColoredPoint[] coloredPoints;
+    private final List<ColoredPoint> coloredPoints;
 
     /**
-     * TODO
-     * @param coloredPoints
+     * Public constructor. Sets params and creates an instance.
+     *
+     * @param coloredPoints to be drawn on this JPanel
+     * @param screenData    to know its width, height, center
+     * @param range         within which to randomize a colored points
      */
-    public BallsDrawingPanel(ColoredPoint[] coloredPoints, ScreenData screenData, int range) {
+    public BallsDrawingPanel(List<ColoredPoint> coloredPoints, ScreenData screenData, int range) {
+        this.range = range;
         this.coloredPoints = coloredPoints;
         this.xShift = screenData.getScreenCenterPoint().x;
         this.yShift = screenData.getScreenCenterPoint().y;
-        this.range = range;
         this.setBackground(screenData.getWindowBackgroundColor());
     }
 
@@ -48,11 +52,11 @@ public class BallsDrawingPanel extends JPanel {
         float[] ballsGradientColorThreshold = new float[] {0.1f, 1.0f};
         Color blackColor = new Color(0,0,0,55);
 
-        for (int i = 0; i < coloredPoints.length; i++) {
-            double radius = (coloredPoints[i].getDekartPoint().getZ() + range) / range * 20;
-            double x = coloredPoints[i].getDekartPoint().getX() + xShift;
-            double y = coloredPoints[i].getDekartPoint().getY() + yShift;
-            Color[] ballsGradientColors = new Color[] {coloredPoints[i].getColor(), blackColor};
+        for (int i = 0; i < coloredPoints.size(); i++) {
+            double radius = (coloredPoints.get(i).getDekartPoint().getZ() + range) / range * 20;
+            double x = coloredPoints.get(i).getDekartPoint().getX() + xShift;
+            double y = coloredPoints.get(i).getDekartPoint().getY() + yShift;
+            Color[] ballsGradientColors = new Color[] {coloredPoints.get(i).getColor(), blackColor};
 
             RadialGradientPaint bgPaint = new RadialGradientPaint(
                     (float) x - 1,

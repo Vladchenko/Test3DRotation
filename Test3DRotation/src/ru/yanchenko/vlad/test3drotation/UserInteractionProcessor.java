@@ -11,15 +11,16 @@ import ru.yanchenko.vlad.test3drotation.utils.GeometryUtils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 /**
- * TODO
+ * Processes a user activity - keyboard and mouse events.
  */
-public class Repository implements KeyEventCallback, MouseDraggedEventCallback {
+public class UserInteractionProcessor implements KeyEventCallback, MouseDraggedEventCallback {
 
     //region Fields
     private final double angle = 0.03;
-    private ColoredPoint[] coloredPoints;
+    private final List<ColoredPoint> coloredPoints;
     private DrawingType drawingType = DrawingType.BALLS;
 
     private final DrawingFrame drawingFrame;
@@ -31,8 +32,8 @@ public class Repository implements KeyEventCallback, MouseDraggedEventCallback {
      * @param drawingFrame  to draw graphics on
      * @param coloredPoints to draw on a JFrame
      */
-    public Repository(DrawingFrame drawingFrame,
-                      ColoredPoint[] coloredPoints) {
+    public UserInteractionProcessor(DrawingFrame drawingFrame,
+                                    List<ColoredPoint> coloredPoints) {
         this.drawingFrame = drawingFrame;
         this.coloredPoints = coloredPoints;
         this.drawingFrame.setKeyListener(new FrameKeyListener(this));
@@ -42,26 +43,26 @@ public class Repository implements KeyEventCallback, MouseDraggedEventCallback {
     @Override
     public void getKeyEvent(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
-            for (ColoredPoint ColoredPoint : coloredPoints) {
-                GeometryUtils.rotateByX(angle, ColoredPoint);
+            for (ColoredPoint coloredPoint : coloredPoints) {
+                GeometryUtils.rotateByX(angle, coloredPoint);
             }
         }
 
         if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
-            for (ColoredPoint ColoredPoint : coloredPoints) {
-                GeometryUtils.rotateByX(-angle, ColoredPoint);
+            for (ColoredPoint coloredPoint : coloredPoints) {
+                GeometryUtils.rotateByX(-angle, coloredPoint);
             }
         }
 
         if (keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
-            for (ColoredPoint ColoredPoint : coloredPoints) {
-                GeometryUtils.rotateByY(angle, ColoredPoint);
+            for (ColoredPoint coloredPoint : coloredPoints) {
+                GeometryUtils.rotateByY(angle, coloredPoint);
             }
         }
 
         if (keyEvent.getKeyCode() == KeyEvent.VK_LEFT) {
-            for (ColoredPoint ColoredPoint : coloredPoints) {
-                GeometryUtils.rotateByY(-angle, ColoredPoint);
+            for (ColoredPoint coloredPoint : coloredPoints) {
+                GeometryUtils.rotateByY(-angle, coloredPoint);
             }
         }
 
@@ -96,10 +97,10 @@ public class Repository implements KeyEventCallback, MouseDraggedEventCallback {
 
     private void defineDrawContentAndDraw() {
         if (drawingType == DrawingType.CUBE) {
-            coloredPoints = drawingFrame.drawContents(DrawingType.CUBE);
+            drawingFrame.drawContents(DrawingType.CUBE);
             drawingType = DrawingType.BALLS;
         } else {
-            coloredPoints = drawingFrame.drawContents(DrawingType.BALLS);
+            drawingFrame.drawContents(DrawingType.BALLS);
             drawingType = DrawingType.CUBE;
         }
     }

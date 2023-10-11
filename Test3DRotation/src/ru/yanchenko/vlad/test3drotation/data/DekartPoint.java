@@ -1,7 +1,7 @@
 package ru.yanchenko.vlad.test3drotation.data;
 
 /**
- * TODO
+ * 3D dekart point.
  */
 public class DekartPoint {
     private double x;

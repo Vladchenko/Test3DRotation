@@ -8,7 +8,7 @@ import java.awt.*;
 public interface MouseDraggedEventCallback {
 
     /**
-     * @param mouseEvent mouse's offset from a previous position
+     * @param point mouse's offset from a previous position
      */
     void getMouseDelta(Point point);
 }
