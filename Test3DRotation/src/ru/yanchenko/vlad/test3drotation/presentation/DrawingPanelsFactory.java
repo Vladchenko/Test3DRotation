@@ -17,29 +17,31 @@ public class DrawingPanelsFactory {
 
     private final int range;
     private final int pointsNumber;
-    private final ScreenData screenData;
     private final PointComparator pointComparator;
     private final List<ColoredPoint> coloredPoints;
+    private final CubeDrawingPanel cubeDrawingPanel;
+    private final BallsDrawingPanel ballsDrawingPanel;
 
     /**
      * Public constructor. Sets params and creates an instance.
      *
      * @param coloredPoints   of points to be drawn on some JPanel
      * @param pointComparator to compare a points and later sort them
-     * @param screenData      to provide screen width, height, center point
      * @param pointsNumber    of points to be created
      * @param range           within which to randomize a colored points
      */
-    public DrawingPanelsFactory(List<ColoredPoint> coloredPoints,
+    public DrawingPanelsFactory(BallsDrawingPanel ballsDrawingPanel,
+                                CubeDrawingPanel cubeDrawingPanel,
+                                List<ColoredPoint> coloredPoints,
                                 PointComparator pointComparator,
-                                ScreenData screenData,
                                 int pointsNumber,
                                 int range) {
         this.range = range;
-        this.screenData = screenData;
         this.pointsNumber = pointsNumber;
         this.coloredPoints = coloredPoints;
         this.pointComparator = pointComparator;
+        this.ballsDrawingPanel = ballsDrawingPanel;
+        this.cubeDrawingPanel = cubeDrawingPanel;
     }
 
     /**
@@ -51,11 +53,11 @@ public class DrawingPanelsFactory {
     JPanel getDrawingPanel(DrawingType drawingType) {
         if (drawingType == DrawingType.CUBE) {
             createAndPlaceBallsAsCube(coloredPoints);
-            return new CubeDrawingPanel(coloredPoints, screenData);
+            return cubeDrawingPanel;
         } else {
             randomizeBalls(coloredPoints, pointsNumber, range);
             coloredPoints.sort(pointComparator);
-            return new BallsDrawingPanel(coloredPoints, screenData, range);
+            return ballsDrawingPanel;
         }
     }
 }

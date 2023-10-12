@@ -2,6 +2,8 @@ package ru.yanchenko.vlad.test3drotation;
 
 import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
 import ru.yanchenko.vlad.test3drotation.data.ScreenData;
+import ru.yanchenko.vlad.test3drotation.presentation.BallsDrawingPanel;
+import ru.yanchenko.vlad.test3drotation.presentation.CubeDrawingPanel;
 import ru.yanchenko.vlad.test3drotation.presentation.DrawingFrame;
 import ru.yanchenko.vlad.test3drotation.presentation.DrawingPanelsFactory;
 import ru.yanchenko.vlad.test3drotation.userinteraction.processors.KeyboardInteractionProcessor;
@@ -33,9 +35,10 @@ public class Test3DRotation {
         DrawingFrame drawingFrame = new DrawingFrame(
                 screenData,
                 new DrawingPanelsFactory(
+                        new BallsDrawingPanel(coloredPointList, screenData, range),
+                        new CubeDrawingPanel(coloredPointList, screenData),
                         coloredPointList,
                         new PointComparator(),
-                        screenData,
                         pointsNumber,
                         range)
         );
