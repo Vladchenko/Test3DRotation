@@ -11,6 +11,7 @@ import javax.swing.*;
  */
 public class DrawingFrame extends JFrame {
 
+    private DrawingType drawingType = DrawingType.CUBE;
     private final DrawingPanelsFactory drawingPanelsFactory;
 
     /**
@@ -37,10 +38,18 @@ public class DrawingFrame extends JFrame {
     /**
      * Draws points on a content pane.
      *
-     * @param drawingType defines a content to be drawn
+     * @param drawingType defines a content type to be drawn
      */
     public void drawContents(DrawingType drawingType) {
-        setContentPane(drawingPanelsFactory.getDrawingPanel(drawingType));
+        this.drawingType = drawingType;
+        drawContents();
+    }
+
+    /**
+     * Draws points on a content pane.
+     */
+    public void drawContents() {
+        setContentPane(drawingPanelsFactory.getDrawingPanel(this.drawingType));
         setVisible(true);
         repaint();
     }

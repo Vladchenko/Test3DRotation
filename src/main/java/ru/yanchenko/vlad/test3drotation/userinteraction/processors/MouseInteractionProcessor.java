@@ -18,7 +18,6 @@ public class MouseInteractionProcessor implements MouseDraggedEventCallback {
     //region Fields
     private static final double ORDINATE_VALUE_DIVIDER = 100.0;
     private final List<ColoredPoint> coloredPoints;
-    private DrawingType drawingType = DrawingType.BALLS;
 
     private final DrawingFrame drawingFrame;
     //endregion Fields
@@ -39,21 +38,11 @@ public class MouseInteractionProcessor implements MouseDraggedEventCallback {
     @Override
     public void rotateByXAndY(Point point) {
         for (ColoredPoint coloredPoint : coloredPoints) {
-            GeometryUtils.rotateByX(point.getX() / ORDINATE_VALUE_DIVIDER, coloredPoint);
+            GeometryUtils.rotateByX(-point.getX() / ORDINATE_VALUE_DIVIDER, coloredPoint);
         }
         for (ColoredPoint coloredPoint : coloredPoints) {
-            GeometryUtils.rotateByY(point.getY() / ORDINATE_VALUE_DIVIDER, coloredPoint);
+            GeometryUtils.rotateByY(-point.getY() / ORDINATE_VALUE_DIVIDER, coloredPoint);
         }
-        defineDrawTypeAndDraw();
-    }
-
-    private void defineDrawTypeAndDraw() {
-        if (drawingType == DrawingType.CUBE) {
-            drawingFrame.drawContents(DrawingType.CUBE);
-            drawingType = DrawingType.BALLS;
-        } else {
-            drawingFrame.drawContents(DrawingType.BALLS);
-            drawingType = DrawingType.CUBE;
-        }
+        drawingFrame.drawContents();
     }
 }

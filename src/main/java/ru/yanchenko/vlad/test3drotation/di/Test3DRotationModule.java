@@ -16,6 +16,8 @@ import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.createAndPlaceBallsAsCube;
+
 @Module
 public class Test3DRotationModule {
 
@@ -48,6 +50,7 @@ public class Test3DRotationModule {
     @Provides
     @Singleton
     CubeDrawingPanel provideCubeDrawingPanel(List<ColoredPoint> coloredPointList, ScreenData screenData) {
+        createAndPlaceBallsAsCube(coloredPointList);
         return new CubeDrawingPanel(coloredPointList, screenData);
     }
 
@@ -59,17 +62,9 @@ public class Test3DRotationModule {
 
     @Provides
     @Singleton
-    DrawingPanelsFactory provideDrawingPanelsFactory(PointComparator pointComparator,
-                                                     CubeDrawingPanel cubeDrawingPanel,
-                                                     BallsDrawingPanel ballsDrawingPanel,
-                                                     List<ColoredPoint> coloredPointList) {
-        return new DrawingPanelsFactory(
-                ballsDrawingPanel,
-                cubeDrawingPanel,
-                coloredPointList,
-                pointComparator,
-                POINTS_NUMBER,
-                RANGE);
+    DrawingPanelsFactory provideDrawingPanelsFactory(CubeDrawingPanel cubeDrawingPanel,
+                                                     BallsDrawingPanel ballsDrawingPanel) {
+        return new DrawingPanelsFactory(ballsDrawingPanel, cubeDrawingPanel);
     }
 
     @Provides
@@ -81,10 +76,14 @@ public class Test3DRotationModule {
     @Provides
     @Singleton
     KeyboardInteractionProcessor provideKeyboardInteractionProcessor(DrawingFrame drawingFrame,
+                                                                     PointComparator pointComparator,
                                                                      List<ColoredPoint> coloredPointList) {
         return new KeyboardInteractionProcessor(
+                RANGE,
                 ANGLE,
+                POINTS_NUMBER,
                 drawingFrame,
+                pointComparator,
                 coloredPointList);
     }
 

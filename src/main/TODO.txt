@@ -1,0 +1,2 @@
+- Move listeners, DrawingType to Dagger
+- Try implement polymorphism for JPanels (check method getDrawingPanel() in DrawingPanelsFactory)
