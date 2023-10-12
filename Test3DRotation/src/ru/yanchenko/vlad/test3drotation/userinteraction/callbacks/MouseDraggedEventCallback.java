@@ -1,4 +1,4 @@
-package ru.yanchenko.vlad.test3drotation.listeners;
+package ru.yanchenko.vlad.test3drotation.userinteraction.callbacks;
 
 import java.awt.*;
 
@@ -10,5 +10,5 @@ public interface MouseDraggedEventCallback {
     /**
      * @param point mouse's offset from a previous position
      */
-    void getMouseDelta(Point point);
+    void rotateByXAndY(Point point);
 }

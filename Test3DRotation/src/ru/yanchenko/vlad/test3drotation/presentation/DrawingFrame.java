@@ -1,11 +1,10 @@
-package ru.yanchenko.vlad.test3drotation.representation;
+package ru.yanchenko.vlad.test3drotation.presentation;
 
 import ru.yanchenko.vlad.test3drotation.data.ScreenData;
-import ru.yanchenko.vlad.test3drotation.listeners.FrameKeyListener;
-import ru.yanchenko.vlad.test3drotation.listeners.FrameMouseMotionListener;
+import ru.yanchenko.vlad.test3drotation.userinteraction.listeners.FrameKeyListener;
+import ru.yanchenko.vlad.test3drotation.userinteraction.listeners.FrameMouseMotionListener;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * This JFrame is to draw graphics onto, using JPanel as a content pane.
@@ -17,7 +16,7 @@ public class DrawingFrame extends JFrame {
     /**
      * Public constructor. Sets params and creates an instance.
      *
-     * @param screenData to provide data on it
+     * @param screenData           to provide data on it
      * @param drawingPanelsFactory to provide a JPanels to draw graphics on
      */
     public DrawingFrame(ScreenData screenData,
@@ -27,10 +26,7 @@ public class DrawingFrame extends JFrame {
         setLocationRelativeTo(null);
         setContentPane(drawingPanelsFactory.getDrawingPanel(DrawingType.CUBE));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        try {
-            setUndecorated(true);
-        } catch (IllegalComponentStateException ex) {
-        }
+        setUndecorated(true);
         setLayout(null);
         setBackground(screenData.getWindowBackgroundColor());
         setVisible(true);

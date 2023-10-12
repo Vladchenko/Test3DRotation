@@ -1,4 +1,4 @@
-package ru.yanchenko.vlad.test3drotation.representation;
+package ru.yanchenko.vlad.test3drotation.presentation;
 
 /**
  * Defines type of drawing

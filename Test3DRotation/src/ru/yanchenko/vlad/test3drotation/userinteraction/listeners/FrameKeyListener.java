@@ -1,4 +1,6 @@
-package ru.yanchenko.vlad.test3drotation.listeners;
+package ru.yanchenko.vlad.test3drotation.userinteraction.listeners;
+
+import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.KeyEventCallback;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

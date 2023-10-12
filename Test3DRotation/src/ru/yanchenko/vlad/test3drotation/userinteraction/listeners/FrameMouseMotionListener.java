@@ -1,4 +1,6 @@
-package ru.yanchenko.vlad.test3drotation.listeners;
+package ru.yanchenko.vlad.test3drotation.userinteraction.listeners;
+
+import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.MouseDraggedEventCallback;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -26,7 +28,7 @@ public class FrameMouseMotionListener implements MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         if (mouseEvent != null) {
-            mouseEventCallback.getMouseDelta(new Point((mouseEvent.getY() - e.getY()), mouseEvent.getX() - e.getX()));
+            mouseEventCallback.rotateByXAndY(new Point((mouseEvent.getY() - e.getY()), mouseEvent.getX() - e.getX()));
         }
         if (mouseEvent != e) {
             mouseEvent = e;

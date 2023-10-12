@@ -2,8 +2,10 @@ package ru.yanchenko.vlad.test3drotation;
 
 import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
 import ru.yanchenko.vlad.test3drotation.data.ScreenData;
-import ru.yanchenko.vlad.test3drotation.representation.DrawingFrame;
-import ru.yanchenko.vlad.test3drotation.representation.DrawingPanelsFactory;
+import ru.yanchenko.vlad.test3drotation.presentation.DrawingFrame;
+import ru.yanchenko.vlad.test3drotation.presentation.DrawingPanelsFactory;
+import ru.yanchenko.vlad.test3drotation.userinteraction.processors.KeyboardInteractionProcessor;
+import ru.yanchenko.vlad.test3drotation.userinteraction.processors.MouseInteractionProcessor;
 import ru.yanchenko.vlad.test3drotation.utils.PointComparator;
 
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ public class Test3DRotation {
 
         // Range in px that balls will be scattered within.
         final int range = 900;
+        // Angle in radians that model is to be rotated on.
+        final double angle = 0.03;
         // Number of points to be drawn on a screen.
         final int pointsNumber = 100;
 
@@ -26,16 +30,21 @@ public class Test3DRotation {
         ScreenData screenData = new ScreenData();
         List<ColoredPoint> coloredPointList = new ArrayList<>();
         createAndPlaceBallsAsCube(coloredPointList);
-        new UserInteractionProcessor(
-                new DrawingFrame(
+        DrawingFrame drawingFrame = new DrawingFrame(
+                screenData,
+                new DrawingPanelsFactory(
+                        coloredPointList,
+                        new PointComparator(),
                         screenData,
-                        new DrawingPanelsFactory(
-                                coloredPointList,
-                                new PointComparator(),
-                                screenData,
-                                pointsNumber,
-                                range)
-                ),
+                        pointsNumber,
+                        range)
+        );
+        new KeyboardInteractionProcessor(
+                angle,
+                drawingFrame,
+                coloredPointList);
+        new MouseInteractionProcessor(
+                drawingFrame,
                 coloredPointList);
     }
 }

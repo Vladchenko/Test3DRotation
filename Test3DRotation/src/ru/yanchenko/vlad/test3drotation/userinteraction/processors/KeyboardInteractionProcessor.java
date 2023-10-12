@@ -1,25 +1,22 @@
-package ru.yanchenko.vlad.test3drotation;
+package ru.yanchenko.vlad.test3drotation.userinteraction.processors;
 
 import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
-import ru.yanchenko.vlad.test3drotation.listeners.FrameKeyListener;
-import ru.yanchenko.vlad.test3drotation.listeners.FrameMouseMotionListener;
-import ru.yanchenko.vlad.test3drotation.listeners.KeyEventCallback;
-import ru.yanchenko.vlad.test3drotation.listeners.MouseDraggedEventCallback;
-import ru.yanchenko.vlad.test3drotation.representation.DrawingFrame;
-import ru.yanchenko.vlad.test3drotation.representation.DrawingType;
+import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.KeyEventCallback;
+import ru.yanchenko.vlad.test3drotation.presentation.DrawingFrame;
+import ru.yanchenko.vlad.test3drotation.presentation.DrawingType;
+import ru.yanchenko.vlad.test3drotation.userinteraction.listeners.FrameKeyListener;
 import ru.yanchenko.vlad.test3drotation.utils.GeometryUtils;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
 /**
  * Processes a user activity - keyboard and mouse events.
  */
-public class UserInteractionProcessor implements KeyEventCallback, MouseDraggedEventCallback {
+public class KeyboardInteractionProcessor implements KeyEventCallback {
 
     //region Fields
-    private final double angle = 0.03;
+    private final double angle;
     private final List<ColoredPoint> coloredPoints;
     private DrawingType drawingType = DrawingType.BALLS;
 
@@ -29,15 +26,17 @@ public class UserInteractionProcessor implements KeyEventCallback, MouseDraggedE
     /**
      * Public constructor. Sets params and creates an instance.
      *
+     * @param angle         in radians that model is to be rotated on.
      * @param drawingFrame  to draw graphics on
      * @param coloredPoints to draw on a JFrame
      */
-    public UserInteractionProcessor(DrawingFrame drawingFrame,
-                                    List<ColoredPoint> coloredPoints) {
+    public KeyboardInteractionProcessor(double angle,
+                                        DrawingFrame drawingFrame,
+                                        List<ColoredPoint> coloredPoints) {
+        this.angle = angle;
         this.drawingFrame = drawingFrame;
         this.coloredPoints = coloredPoints;
         this.drawingFrame.setKeyListener(new FrameKeyListener(this));
-        this.drawingFrame.setMouseMotionListener(new FrameMouseMotionListener(this));
     }
 
     @Override
@@ -82,17 +81,6 @@ public class UserInteractionProcessor implements KeyEventCallback, MouseDraggedE
             defineDrawContentAndDraw();
         }
         drawingFrame.repaint();
-    }
-
-    @Override
-    public void getMouseDelta(Point point) {
-        for (ColoredPoint coloredPoint : coloredPoints) {
-            GeometryUtils.rotateByX(point.getX() / 100.0, coloredPoint);
-        }
-        for (ColoredPoint coloredPoint : coloredPoints) {
-            GeometryUtils.rotateByY(point.getY() / 100.0, coloredPoint);
-        }
-        defineDrawContentAndDraw();
     }
 
     private void defineDrawContentAndDraw() {
