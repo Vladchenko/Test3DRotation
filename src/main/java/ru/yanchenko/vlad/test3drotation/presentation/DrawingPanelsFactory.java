@@ -1,7 +1,6 @@
 package ru.yanchenko.vlad.test3drotation.presentation;
 
 import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
-import ru.yanchenko.vlad.test3drotation.data.ScreenData;
 import ru.yanchenko.vlad.test3drotation.utils.PointComparator;
 
 import javax.swing.*;
