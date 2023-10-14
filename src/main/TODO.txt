@@ -1,2 +1,3 @@
-- Move listeners, DrawingType to Dagger
+- Is there a way to set listeners inside a dagger module, but not a main method ?
+- Get range, pointsNumber from main methods params
 - Try implement polymorphism for JPanels (check method getDrawingPanel() in DrawingPanelsFactory)

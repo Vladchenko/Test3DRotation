@@ -8,6 +8,8 @@ import ru.yanchenko.vlad.test3drotation.presentation.BallsDrawingPanel;
 import ru.yanchenko.vlad.test3drotation.presentation.CubeDrawingPanel;
 import ru.yanchenko.vlad.test3drotation.presentation.DrawingFrame;
 import ru.yanchenko.vlad.test3drotation.presentation.DrawingPanelsFactory;
+import ru.yanchenko.vlad.test3drotation.userinteraction.listeners.FrameKeyListener;
+import ru.yanchenko.vlad.test3drotation.userinteraction.listeners.FrameMouseMotionListener;
 import ru.yanchenko.vlad.test3drotation.userinteraction.processors.KeyboardInteractionProcessor;
 import ru.yanchenko.vlad.test3drotation.userinteraction.processors.MouseInteractionProcessor;
 import ru.yanchenko.vlad.test3drotation.utils.PointComparator;
@@ -94,5 +96,17 @@ public class Test3DRotationModule {
         return new MouseInteractionProcessor(
                 drawingFrame,
                 coloredPointList);
+    }
+
+    @Provides
+    @Singleton
+    FrameMouseMotionListener provideFrameMouseMotionListener(MouseInteractionProcessor mouseInteractionProcessor) {
+        return new FrameMouseMotionListener(mouseInteractionProcessor);
+    }
+
+    @Provides
+    @Singleton
+    FrameKeyListener provideFrameKeyListener(KeyboardInteractionProcessor keyboardInteractionProcessor) {
+        return new FrameKeyListener(keyboardInteractionProcessor);
     }
 }

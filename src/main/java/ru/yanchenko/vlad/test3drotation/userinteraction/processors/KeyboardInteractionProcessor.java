@@ -1,10 +1,9 @@
 package ru.yanchenko.vlad.test3drotation.userinteraction.processors;
 
 import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
-import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.KeyEventCallback;
 import ru.yanchenko.vlad.test3drotation.presentation.DrawingFrame;
 import ru.yanchenko.vlad.test3drotation.presentation.DrawingType;
-import ru.yanchenko.vlad.test3drotation.userinteraction.listeners.FrameKeyListener;
+import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.KeyEventCallback;
 import ru.yanchenko.vlad.test3drotation.utils.GeometryUtils;
 import ru.yanchenko.vlad.test3drotation.utils.PointComparator;
 
@@ -52,7 +51,6 @@ public class KeyboardInteractionProcessor implements KeyEventCallback {
         this.drawingFrame = drawingFrame;
         this.coloredPoints = coloredPoints;
         this.pointComparator = pointComparator;
-        this.drawingFrame.setKeyListener(new FrameKeyListener(this));
     }
 
     @Override

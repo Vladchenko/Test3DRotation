@@ -1,10 +1,8 @@
 package ru.yanchenko.vlad.test3drotation.userinteraction.processors;
 
 import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
-import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.MouseDraggedEventCallback;
 import ru.yanchenko.vlad.test3drotation.presentation.DrawingFrame;
-import ru.yanchenko.vlad.test3drotation.presentation.DrawingType;
-import ru.yanchenko.vlad.test3drotation.userinteraction.listeners.FrameMouseMotionListener;
+import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.MouseDraggedEventCallback;
 import ru.yanchenko.vlad.test3drotation.utils.GeometryUtils;
 
 import java.awt.*;
@@ -32,7 +30,6 @@ public class MouseInteractionProcessor implements MouseDraggedEventCallback {
                                      List<ColoredPoint> coloredPoints) {
         this.drawingFrame = drawingFrame;
         this.coloredPoints = coloredPoints;
-        this.drawingFrame.setMouseMotionListener(new FrameMouseMotionListener(this));
     }
 
     @Override
