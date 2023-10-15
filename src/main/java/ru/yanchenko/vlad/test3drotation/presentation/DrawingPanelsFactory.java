@@ -24,11 +24,11 @@ public class DrawingPanelsFactory {
     /**
      * Define a JPanel to draw graphics on
      *
-     * @param drawingType to define what kind of JPanel to use
+     * @param className to define what kind of JPanel to use
      * @return JPanel to draw graphics on
      */
-    JPanel getDrawingPanel(DrawingType drawingType) {
-        if (drawingType == DrawingType.CUBE) {
+    JPanel getDrawingPanel(Class className) {
+        if (className == CubeDrawingPanel.class) {
             return cubeDrawingPanel;
         } else {
             return ballsDrawingPanel;

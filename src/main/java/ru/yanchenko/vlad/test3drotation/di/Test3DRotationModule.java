@@ -4,10 +4,7 @@ import dagger.Module;
 import dagger.Provides;
 import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
 import ru.yanchenko.vlad.test3drotation.data.ScreenData;
-import ru.yanchenko.vlad.test3drotation.presentation.BallsDrawingPanel;
-import ru.yanchenko.vlad.test3drotation.presentation.CubeDrawingPanel;
-import ru.yanchenko.vlad.test3drotation.presentation.DrawingFrame;
-import ru.yanchenko.vlad.test3drotation.presentation.DrawingPanelsFactory;
+import ru.yanchenko.vlad.test3drotation.presentation.*;
 import ru.yanchenko.vlad.test3drotation.userinteraction.listeners.FrameKeyListener;
 import ru.yanchenko.vlad.test3drotation.userinteraction.listeners.FrameMouseMotionListener;
 import ru.yanchenko.vlad.test3drotation.userinteraction.processors.KeyboardInteractionProcessor;
@@ -77,36 +74,46 @@ public class Test3DRotationModule {
 
     @Provides
     @Singleton
-    KeyboardInteractionProcessor provideKeyboardInteractionProcessor(DrawingFrame drawingFrame,
-                                                                     PointComparator pointComparator,
-                                                                     List<ColoredPoint> coloredPointList) {
+    KeyboardInteractionProcessor provideKeyboardInteractionProcessor(List<ColoredPoint> coloredPointList,
+                                                                     DrawingContentChooser drawingContentChooser) {
         return new KeyboardInteractionProcessor(
-                RANGE,
                 ANGLE,
+                coloredPointList,
+                drawingContentChooser);
+    }
+
+    @Provides
+    @Singleton
+    MouseInteractionProcessor provideMouseInteractionProcessor(List<ColoredPoint> coloredPointList) {
+        return new MouseInteractionProcessor(coloredPointList);
+    }
+
+    @Provides
+    @Singleton
+    FrameMouseMotionListener provideFrameMouseMotionListener(DrawingFrame drawingFrame,
+                                                             MouseInteractionProcessor mouseInteractionProcessor) {
+        return new FrameMouseMotionListener(drawingFrame, mouseInteractionProcessor);
+    }
+
+    @Provides
+    @Singleton
+    FrameKeyListener provideFrameKeyListener(DrawingFrame drawingFrame,
+                                             KeyboardInteractionProcessor keyboardInteractionProcessor) {
+        return new FrameKeyListener(drawingFrame, keyboardInteractionProcessor);
+    }
+
+    @Provides
+    @Singleton
+    DrawingContentChooser provideDrawingContentChooser(DrawingFrame drawingFrame,
+                                                       PointComparator pointComparator,
+                                                       List<ColoredPoint> coloredPoints,
+                                                       DrawingPanelsFactory drawingPanelsFactory) {
+        return new DrawingContentChooser(
+                RANGE,
                 POINTS_NUMBER,
                 drawingFrame,
                 pointComparator,
-                coloredPointList);
-    }
-
-    @Provides
-    @Singleton
-    MouseInteractionProcessor provideMouseInteractionProcessor(DrawingFrame drawingFrame,
-                                                               List<ColoredPoint> coloredPointList) {
-        return new MouseInteractionProcessor(
-                drawingFrame,
-                coloredPointList);
-    }
-
-    @Provides
-    @Singleton
-    FrameMouseMotionListener provideFrameMouseMotionListener(MouseInteractionProcessor mouseInteractionProcessor) {
-        return new FrameMouseMotionListener(mouseInteractionProcessor);
-    }
-
-    @Provides
-    @Singleton
-    FrameKeyListener provideFrameKeyListener(KeyboardInteractionProcessor keyboardInteractionProcessor) {
-        return new FrameKeyListener(keyboardInteractionProcessor);
+                coloredPoints,
+                drawingPanelsFactory);
     }
 }

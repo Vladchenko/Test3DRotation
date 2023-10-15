@@ -1,17 +1,12 @@
 package ru.yanchenko.vlad.test3drotation.userinteraction.processors;
 
 import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
-import ru.yanchenko.vlad.test3drotation.presentation.DrawingFrame;
-import ru.yanchenko.vlad.test3drotation.presentation.DrawingType;
+import ru.yanchenko.vlad.test3drotation.presentation.DrawingContentChooser;
 import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.KeyEventCallback;
 import ru.yanchenko.vlad.test3drotation.utils.GeometryUtils;
-import ru.yanchenko.vlad.test3drotation.utils.PointComparator;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
-
-import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.createAndPlaceBallsAsCube;
-import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.randomizeBalls;
 
 /**
  * Processes a user activity - keyboard and mouse events.
@@ -19,38 +14,24 @@ import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.random
 public class KeyboardInteractionProcessor implements KeyEventCallback {
 
     //region Fields
-    private final int range;
     private final double angle;
-    private final int pointsNumber;
     private final List<ColoredPoint> coloredPoints;
-    private DrawingType drawingType = DrawingType.BALLS;
-
-    private final DrawingFrame drawingFrame;
-    private final PointComparator pointComparator;
+    private final DrawingContentChooser drawingContentChooser;
     //endregion Fields
 
     /**
      * Public constructor. Sets params and creates an instance.
      * <p>
-     * @param range           within which to randomize a colored points
-     * @param angle           in radians that model is to be rotated on.
-     * @param pointsNumber    of points to be created
-     * @param drawingFrame    to draw graphics on
-     * @param pointComparator to compare a points and later sort them
-     * @param coloredPoints   to draw on a JFrame
+     * @param angle                 in radians that model is to be rotated on.
+     * @param drawingContentChooser defines a contetn to draw
+     * @param coloredPoints         to draw on a JFrame
      */
-    public KeyboardInteractionProcessor(int range,
-                                        double angle,
-                                        int pointsNumber,
-                                        DrawingFrame drawingFrame,
-                                        PointComparator pointComparator,
-                                        List<ColoredPoint> coloredPoints) {
+    public KeyboardInteractionProcessor(double angle,
+                                        List<ColoredPoint> coloredPoints,
+                                        DrawingContentChooser drawingContentChooser) {
         this.angle = angle;
-        this.range = range;
-        this.pointsNumber = pointsNumber;
-        this.drawingFrame = drawingFrame;
         this.coloredPoints = coloredPoints;
-        this.pointComparator = pointComparator;
+        this.drawingContentChooser = drawingContentChooser;
     }
 
     @Override
@@ -92,21 +73,7 @@ public class KeyboardInteractionProcessor implements KeyEventCallback {
         }
 
         if (keyEvent.getKeyCode() == ' ') {
-            defineDrawContentAndDraw();
-        }
-        drawingFrame.repaint();
-    }
-
-    private void defineDrawContentAndDraw() {
-        if (drawingType == DrawingType.CUBE) {
-            createAndPlaceBallsAsCube(coloredPoints);
-            drawingFrame.drawContents(DrawingType.CUBE);
-            drawingType = DrawingType.BALLS;
-        } else {
-            randomizeBalls(coloredPoints, pointsNumber, range);
-            coloredPoints.sort(pointComparator);
-            drawingFrame.drawContents(DrawingType.BALLS);
-            drawingType = DrawingType.CUBE;
+            drawingContentChooser.defineDrawContents();
         }
     }
 }

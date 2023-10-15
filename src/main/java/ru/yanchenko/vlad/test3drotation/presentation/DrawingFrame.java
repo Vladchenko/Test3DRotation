@@ -11,9 +11,6 @@ import javax.swing.*;
  */
 public class DrawingFrame extends JFrame {
 
-    private DrawingType drawingType = DrawingType.CUBE;
-    private final DrawingPanelsFactory drawingPanelsFactory;
-
     /**
      * Public constructor. Sets params and creates an instance.
      *
@@ -22,35 +19,15 @@ public class DrawingFrame extends JFrame {
      */
     public DrawingFrame(ScreenData screenData,
                         DrawingPanelsFactory drawingPanelsFactory) {
-        this.drawingPanelsFactory = drawingPanelsFactory;
         setSize(screenData.getScreenWidth(), screenData.getScreenHeight());
         setLocationRelativeTo(null);
-        setContentPane(drawingPanelsFactory.getDrawingPanel(DrawingType.CUBE));
+        setContentPane(drawingPanelsFactory.getDrawingPanel(CubeDrawingPanel.class));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setLayout(null);
         setBackground(screenData.getWindowBackgroundColor());
         setVisible(true);
         requestFocus();
-        repaint();
-    }
-
-    /**
-     * Draws points on a content pane.
-     *
-     * @param drawingType defines a content type to be drawn
-     */
-    public void drawContents(DrawingType drawingType) {
-        this.drawingType = drawingType;
-        drawContents();
-    }
-
-    /**
-     * Draws points on a content pane.
-     */
-    public void drawContents() {
-        setContentPane(drawingPanelsFactory.getDrawingPanel(this.drawingType));
-        setVisible(true);
         repaint();
     }
 
