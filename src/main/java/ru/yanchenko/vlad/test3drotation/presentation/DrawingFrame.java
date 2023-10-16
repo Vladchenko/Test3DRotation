@@ -1,8 +1,6 @@
 package ru.yanchenko.vlad.test3drotation.presentation;
 
 import ru.yanchenko.vlad.test3drotation.data.ScreenData;
-import ru.yanchenko.vlad.test3drotation.userinteraction.listeners.FrameKeyListener;
-import ru.yanchenko.vlad.test3drotation.userinteraction.listeners.FrameMouseMotionListener;
 
 import javax.swing.*;
 
@@ -26,19 +24,5 @@ public class DrawingFrame extends JFrame {
         setVisible(true);
         requestFocus();
         repaint();
-    }
-
-    /**
-     * @param keyListener to be set to receive keyboard buttons typing
-     */
-    public void setKeyListener(FrameKeyListener keyListener) {
-        addKeyListener(keyListener);
-    }
-
-    /**
-     * @param mouseMotionListener to be set to receive mouse buttons clicking
-     */
-    public void setMouseMotionListener(FrameMouseMotionListener mouseMotionListener) {
-        addMouseMotionListener(mouseMotionListener);
     }
 }

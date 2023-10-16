@@ -12,16 +12,17 @@ import java.util.List;
  */
 public class CubeDrawingPanel extends JPanel {
 
-    private final int xShift;
-    private final int yShift;
-    private final List<ColoredPoint> coloredPoints;
-    private final float[] cubeRibGradientThresholds = new float[]{0.0f, 0.4f, 0.6f, 1.0f};
-    private final Color[] cubeRibGradientColors = new Color[]{
+    private final float[] CUBE_RIB_GRADIENT_THRESHOLDS = {0.0f, 0.4f, 0.6f, 1.0f};
+    private final Color[] CUBE_RIB_GRADIENT_COLORS = {
             new Color(255, 255, 255, 255),
             new Color(0, 0, 0, 0),
             new Color(0, 0, 0, 0),
             new Color(255, 255, 255, 255)
     };
+
+    private final int xShift;
+    private final int yShift;
+    private final List<ColoredPoint> coloredPoints;
 
     /**
      * Public constructor. Sets params and creates an instance.
@@ -65,18 +66,18 @@ public class CubeDrawingPanel extends JPanel {
     }
 
     private void drawCubeRib(List<ColoredPoint> coloredPoints, Graphics2D g2, int ball1Index, int ball2Index) {
-        if (coloredPoints.get(ball1Index).getDekartPoint().getX() != coloredPoints.get(ball2Index).getDekartPoint().getX()
-                || coloredPoints.get(ball1Index).getDekartPoint().getY() != coloredPoints.get(ball2Index).getDekartPoint().getY()) {
 
-            double x1 = coloredPoints.get(ball1Index).getDekartPoint().getX() + xShift;
-            double y1 = coloredPoints.get(ball1Index).getDekartPoint().getY() + yShift;
-            double x2 = coloredPoints.get(ball2Index).getDekartPoint().getX() + xShift;
-            double y2 = coloredPoints.get(ball2Index).getDekartPoint().getY() + yShift;
+        double x1 = coloredPoints.get(ball1Index).getDekartPoint().getX() + xShift;
+        double y1 = coloredPoints.get(ball1Index).getDekartPoint().getY() + yShift;
+        double x2 = coloredPoints.get(ball2Index).getDekartPoint().getX() + xShift;
+        double y2 = coloredPoints.get(ball2Index).getDekartPoint().getY() + yShift;
+
+        if (x1 != x2 || y1 != y2) {
 
             LinearGradientPaint gradientPaint = new LinearGradientPaint(
                     (float) x1, (float) y1, (float) x2, (float) y2,
-                    cubeRibGradientThresholds,
-                    cubeRibGradientColors
+                    CUBE_RIB_GRADIENT_THRESHOLDS,
+                    CUBE_RIB_GRADIENT_COLORS
             );
 
             g2.setPaint(gradientPaint);

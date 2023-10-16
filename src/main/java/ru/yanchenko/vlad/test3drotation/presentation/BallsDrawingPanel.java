@@ -12,6 +12,11 @@ import java.util.List;
  */
 public class BallsDrawingPanel extends JPanel {
 
+    private static final int STROKE_SIZE = 20;
+    private static final float[] STROKE_DASH = {1.0f, 1.0f};
+    private static final float[] GRADIENT_COLOR_THRESHOLD = {0.1f, 1.0f};
+    private static final Color BLACK_TRANSPARENT = new Color(0, 0, 0, 55);
+
     private final int range;
     private final int xShift;
     private final int yShift;
@@ -43,26 +48,22 @@ public class BallsDrawingPanel extends JPanel {
         // Adding an antialiasing for graphics
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        float[] dash1 = {1.0f, 1.0f};
-        g2.setStroke(new BasicStroke(20,
+        g2.setStroke(new BasicStroke(STROKE_SIZE,
                 BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_ROUND,
-                1, dash1, 1.0f));
+                1, STROKE_DASH, 1.0f));
 
-        float[] ballsGradientColorThreshold = new float[] {0.1f, 1.0f};
-        Color blackColor = new Color(0,0,0,55);
-
-        for (int i = 0; i < coloredPoints.size(); i++) {
-            double radius = (coloredPoints.get(i).getDekartPoint().getZ() + range) / range * 20;
-            double x = coloredPoints.get(i).getDekartPoint().getX() + xShift;
-            double y = coloredPoints.get(i).getDekartPoint().getY() + yShift;
-            Color[] ballsGradientColors = new Color[] {coloredPoints.get(i).getColor(), blackColor};
+        for (ColoredPoint coloredPoint : coloredPoints) {
+            double radius = (coloredPoint.getDekartPoint().getZ() + range) / range * 20;
+            double x = coloredPoint.getDekartPoint().getX() + xShift;
+            double y = coloredPoint.getDekartPoint().getY() + yShift;
+            Color[] ballsGradientColors = new Color[]{coloredPoint.getColor(), BLACK_TRANSPARENT};
 
             RadialGradientPaint bgPaint = new RadialGradientPaint(
                     (float) x - 1,
                     (float) y - 1,
                     (float) radius / 2,
-                    ballsGradientColorThreshold,
+                    GRADIENT_COLOR_THRESHOLD,
                     ballsGradientColors);
 
             g2.setPaint(bgPaint);
