@@ -6,8 +6,8 @@ import javax.swing.*;
  * Defines and retrieves JPanels for drawing.
  */
 public class DrawingPanelsFactory {
-    private final CubeDrawingPanel cubeDrawingPanel;
-    private final BallsDrawingPanel ballsDrawingPanel;
+    private final JPanel cubeDrawingPanel;
+    private final JPanel ballsDrawingPanel;
 
     /**
      * Public constructor. Sets params and creates an instance.
@@ -15,8 +15,7 @@ public class DrawingPanelsFactory {
      * @param ballsDrawingPanel to draw graphic model on
      * @param cubeDrawingPanel  to draw graphic model on
      */
-    public DrawingPanelsFactory(BallsDrawingPanel ballsDrawingPanel,
-                                CubeDrawingPanel cubeDrawingPanel) {
+    public DrawingPanelsFactory(JPanel ballsDrawingPanel, JPanel cubeDrawingPanel) {
         this.ballsDrawingPanel = ballsDrawingPanel;
         this.cubeDrawingPanel = cubeDrawingPanel;
     }
@@ -24,14 +23,17 @@ public class DrawingPanelsFactory {
     /**
      * Define a JPanel to draw graphics on
      *
-     * @param className to define what kind of JPanel to use
+     * @param drawingType to define what kind of JPanel to use
      * @return JPanel to draw graphics on
      */
-    JPanel getDrawingPanel(Class className) {
-        if (className == CubeDrawingPanel.class) {
-            return cubeDrawingPanel;
-        } else {
-            return ballsDrawingPanel;
+    public JPanel getDrawingPanel(DrawingType drawingType) {
+        switch (drawingType) {
+            case CUBE:
+                return cubeDrawingPanel;
+            case BALLS:
+                return ballsDrawingPanel;
+            default:
+                throw new IllegalArgumentException("Invalid drawing type: " + drawingType);
         }
     }
 }

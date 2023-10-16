@@ -12,6 +12,7 @@ import ru.yanchenko.vlad.test3drotation.userinteraction.processors.MouseInteract
 import ru.yanchenko.vlad.test3drotation.utils.PointComparator;
 
 import javax.inject.Singleton;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,8 +69,11 @@ public class Test3DRotationModule {
 
     @Provides
     @Singleton
-    DrawingFrame provideDrawingFrame(ScreenData screenData, DrawingPanelsFactory drawingPanelsFactory) {
-        return new DrawingFrame(screenData, drawingPanelsFactory);
+    JFrame provideDrawingFrame(ScreenData screenData, DrawingPanelsFactory drawingPanelsFactory) {
+        JFrame frame = new DrawingFrame(screenData);
+        frame.setContentPane(drawingPanelsFactory.getDrawingPanel(DrawingType.CUBE));
+        frame.setVisible(true);
+        return frame;
     }
 
     @Provides
@@ -90,21 +94,21 @@ public class Test3DRotationModule {
 
     @Provides
     @Singleton
-    FrameMouseMotionListener provideFrameMouseMotionListener(DrawingFrame drawingFrame,
+    FrameMouseMotionListener provideFrameMouseMotionListener(JFrame drawingFrame,
                                                              MouseInteractionProcessor mouseInteractionProcessor) {
         return new FrameMouseMotionListener(drawingFrame, mouseInteractionProcessor);
     }
 
     @Provides
     @Singleton
-    FrameKeyListener provideFrameKeyListener(DrawingFrame drawingFrame,
+    FrameKeyListener provideFrameKeyListener(JFrame drawingFrame,
                                              KeyboardInteractionProcessor keyboardInteractionProcessor) {
         return new FrameKeyListener(drawingFrame, keyboardInteractionProcessor);
     }
 
     @Provides
     @Singleton
-    DrawingContentChooser provideDrawingContentChooser(DrawingFrame drawingFrame,
+    DrawingContentChooser provideDrawingContentChooser(JFrame drawingFrame,
                                                        PointComparator pointComparator,
                                                        List<ColoredPoint> coloredPoints,
                                                        DrawingPanelsFactory drawingPanelsFactory) {

@@ -3,6 +3,7 @@ package ru.yanchenko.vlad.test3drotation.presentation;
 import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
 import ru.yanchenko.vlad.test3drotation.utils.PointComparator;
 
+import javax.swing.*;
 import java.util.List;
 
 import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.createAndPlaceBallsAsCube;
@@ -15,7 +16,7 @@ public class DrawingContentChooser {
 
     private final int range;
     private final int pointsNumber;
-    private final DrawingFrame drawingFrame;
+    private final JFrame drawingFrame;
     private final PointComparator pointComparator;
     private final List<ColoredPoint> coloredPoints;
     private final DrawingPanelsFactory drawingPanelsFactory;
@@ -32,7 +33,7 @@ public class DrawingContentChooser {
      */
     public DrawingContentChooser(int range,
                                  int pointsNumber,
-                                 DrawingFrame drawingFrame,
+                                 JFrame drawingFrame,
                                  PointComparator pointComparator,
                                  List<ColoredPoint> coloredPoints,
                                  DrawingPanelsFactory drawingPanelsFactory) {
@@ -50,11 +51,11 @@ public class DrawingContentChooser {
     public void defineDrawContents() {
         if (drawingFrame.getContentPane().getClass() == BallsDrawingPanel.class) {
             createAndPlaceBallsAsCube(coloredPoints);
-            drawingFrame.setContentPane(drawingPanelsFactory.getDrawingPanel(CubeDrawingPanel.class));
+            drawingFrame.setContentPane(drawingPanelsFactory.getDrawingPanel(DrawingType.CUBE));
         } else {
             randomizeBalls(coloredPoints, pointsNumber, range);
             coloredPoints.sort(pointComparator);
-            drawingFrame.setContentPane(drawingPanelsFactory.getDrawingPanel(BallsDrawingPanel.class));
+            drawingFrame.setContentPane(drawingPanelsFactory.getDrawingPanel(DrawingType.BALLS));
         }
     }
 }

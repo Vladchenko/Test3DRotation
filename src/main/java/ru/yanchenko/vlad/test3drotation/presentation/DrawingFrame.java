@@ -15,13 +15,10 @@ public class DrawingFrame extends JFrame {
      * Public constructor. Sets params and creates an instance.
      *
      * @param screenData           to provide data on it
-     * @param drawingPanelsFactory to provide a JPanels to draw graphics on
      */
-    public DrawingFrame(ScreenData screenData,
-                        DrawingPanelsFactory drawingPanelsFactory) {
+    public DrawingFrame(ScreenData screenData) {
         setSize(screenData.getScreenWidth(), screenData.getScreenHeight());
         setLocationRelativeTo(null);
-        setContentPane(drawingPanelsFactory.getDrawingPanel(CubeDrawingPanel.class));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setLayout(null);

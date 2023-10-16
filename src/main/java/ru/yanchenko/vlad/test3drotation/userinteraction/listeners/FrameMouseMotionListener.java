@@ -1,8 +1,8 @@
 package ru.yanchenko.vlad.test3drotation.userinteraction.listeners;
 
-import ru.yanchenko.vlad.test3drotation.presentation.DrawingFrame;
 import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.MouseDraggedEventCallback;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -15,7 +15,7 @@ import java.awt.event.MouseMotionListener;
 public class FrameMouseMotionListener implements MouseMotionListener {
 
     private MouseEvent mouseEvent;
-    private final DrawingFrame drawingFrame;
+    private final JFrame drawingFrame;
     private final MouseDraggedEventCallback mouseEventCallback;
 
     /**
@@ -24,7 +24,7 @@ public class FrameMouseMotionListener implements MouseMotionListener {
      * @param mouseEventCallback of a mouse buttons typing events
      * @param drawingFrame       to draw graphics on
      */
-    public FrameMouseMotionListener(DrawingFrame drawingFrame,
+    public FrameMouseMotionListener(JFrame drawingFrame,
                                     MouseDraggedEventCallback mouseEventCallback) {
         this.drawingFrame = drawingFrame;
         this.mouseEventCallback = mouseEventCallback;

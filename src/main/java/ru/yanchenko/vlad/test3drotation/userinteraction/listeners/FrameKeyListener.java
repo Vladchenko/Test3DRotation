@@ -1,8 +1,8 @@
 package ru.yanchenko.vlad.test3drotation.userinteraction.listeners;
 
-import ru.yanchenko.vlad.test3drotation.presentation.DrawingFrame;
 import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.KeyEventCallback;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
  */
 public class FrameKeyListener implements KeyListener {
 
-    private final DrawingFrame drawingFrame;
+    private final JFrame drawingFrame;
     private final KeyEventCallback callback;
 
     /**
@@ -19,7 +19,7 @@ public class FrameKeyListener implements KeyListener {
      *
      * @param keyEventCallback of a keyboard buttons typing events
      */
-    public FrameKeyListener(DrawingFrame drawingFrame,
+    public FrameKeyListener(JFrame drawingFrame,
                             KeyEventCallback keyEventCallback) {
         this.callback = keyEventCallback;
         this.drawingFrame = drawingFrame;
