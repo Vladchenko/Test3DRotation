@@ -49,7 +49,7 @@ public class DrawingContentChooser {
      * Define a JPanel to draw graphics on.
      */
     public void defineDrawContents() {
-        if (drawingFrame.getContentPane().getClass() == BallsDrawingPanel.class) {
+        if (drawingFrame.getContentPane() instanceof BallsDrawingPanel) {
             createAndPlaceBallsAsCube(coloredPoints);
             drawingFrame.setContentPane(drawingPanelsFactory.getDrawingPanel(DrawingType.CUBE));
         } else {

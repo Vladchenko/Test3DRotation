@@ -22,6 +22,7 @@ public class KeyboardInteractionProcessor implements KeyEventCallback {
     /**
      * Public constructor. Sets params and creates an instance.
      * <p>
+     *
      * @param angle                 in radians that model is to be rotated on.
      * @param drawingContentChooser defines a contetn to draw
      * @param coloredPoints         to draw on a JFrame

@@ -12,50 +12,53 @@ public final class GeometryUtils {
     }
 
     /**
-     * Rotate colored point around an X axis
+     * Rotate a point around the X-axis
      *
-     * @param angle for a point to be rotated on
-     * @param coloredPoint to be rotated
+     * @param angle        the angle in radians
+     * @param coloredPoint the point to rotate
      */
     public static void rotateByX(double angle, ColoredPoint coloredPoint) {
         double y = coloredPoint.getDekartPoint().getY();
-        coloredPoint.getDekartPoint().setY(
-                coloredPoint.getDekartPoint().getY() * Math.cos(angle) + coloredPoint.getDekartPoint().getZ() * Math.sin(angle)
-        );
-        coloredPoint.getDekartPoint().setZ(
-                - y * Math.sin(angle) + coloredPoint.getDekartPoint().getZ() * Math.cos(angle)
-        );
+        double z = coloredPoint.getDekartPoint().getZ();
+
+        double newY = y * Math.cos(angle) + z * Math.sin(angle);
+        double newZ = -y * Math.sin(angle) + z * Math.cos(angle);
+
+        coloredPoint.getDekartPoint().setY(newY);
+        coloredPoint.getDekartPoint().setZ(newZ);
     }
 
     /**
-     * Rotate colored point around an Y axis
+     * Rotate a point around the Y-axis
      *
-     * @param angle for a point to be rotated on
+     * @param angle        for a point to be rotated on
      * @param coloredPoint to be rotated
      */
     public static void rotateByY(double angle, ColoredPoint coloredPoint) {
         double x = coloredPoint.getDekartPoint().getX();
-        coloredPoint.getDekartPoint().setX(
-                coloredPoint.getDekartPoint().getX() * Math.cos(angle) + coloredPoint.getDekartPoint().getZ() * Math.sin(angle)
-        );
-        coloredPoint.getDekartPoint().setZ(
-                - x * Math.sin(angle) + coloredPoint.getDekartPoint().getZ() * Math.cos(angle)
-        );
+        double z = coloredPoint.getDekartPoint().getZ();
+
+        double newX = x * Math.cos(angle) + z * Math.sin(angle);
+        double newZ = -x * Math.sin(angle) + z * Math.cos(angle);
+
+        coloredPoint.getDekartPoint().setX(newX);
+        coloredPoint.getDekartPoint().setZ(newZ);
     }
 
     /**
-     * Rotate colored point around an Z axis
+     * Rotate a point around the Z-axis
      *
-     * @param angle for a point to be rotated on
-     * @param coloredPoint to be rotated
+     * @param angle        the angle in radians
+     * @param coloredPoint the point to rotate
      */
     public static void rotateByZ(double angle, ColoredPoint coloredPoint) {
         double x = coloredPoint.getDekartPoint().getX();
-        coloredPoint.getDekartPoint().setX(
-                coloredPoint.getDekartPoint().getX() * Math.cos(angle) + coloredPoint.getDekartPoint().getY() * Math.sin(angle)
-        );
-        coloredPoint.getDekartPoint().setY(
-                - x * Math.sin(angle) + coloredPoint.getDekartPoint().getY() * Math.cos(angle)
-        );
+        double y = coloredPoint.getDekartPoint().getY();
+
+        double newX = x * Math.cos(angle) + y * Math.sin(angle);
+        double newY = -x * Math.sin(angle) + y * Math.cos(angle);
+
+        coloredPoint.getDekartPoint().setX(newX);
+        coloredPoint.getDekartPoint().setY(newY);
     }
 }

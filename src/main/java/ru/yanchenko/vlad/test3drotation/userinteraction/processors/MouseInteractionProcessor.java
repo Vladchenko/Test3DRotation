@@ -8,19 +8,20 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * Processes a user activity - keyboard and mouse events.
+ * Processes user interactions using mouse events.
  */
 public class MouseInteractionProcessor implements MouseDraggedEventCallback {
 
-    //region Fields
-    private static final double ORDINATE_VALUE_DIVIDER = 100.0;
+    // Constants for rotation sensitivity
+    private static final double X_ROTATION_SENSITIVITY = 0.01; // Adjust this value as needed
+    private static final double Y_ROTATION_SENSITIVITY = 0.01; // Adjust this value as needed
+
     private final List<ColoredPoint> coloredPoints;
-    //endregion Fields
 
     /**
-     * Public constructor. Sets params and creates an instance.
+     * Create a MouseInteractionProcessor with the given list of ColoredPoints.
      *
-     * @param coloredPoints to draw on a JFrame
+     * @param coloredPoints List of ColoredPoints to apply rotations to.
      */
     public MouseInteractionProcessor(List<ColoredPoint> coloredPoints) {
         this.coloredPoints = coloredPoints;
@@ -28,11 +29,12 @@ public class MouseInteractionProcessor implements MouseDraggedEventCallback {
 
     @Override
     public void rotateByXAndY(Point point) {
+        double xRotation = -point.getX() * X_ROTATION_SENSITIVITY;
+        double yRotation = -point.getY() * Y_ROTATION_SENSITIVITY;
+
         for (ColoredPoint coloredPoint : coloredPoints) {
-            GeometryUtils.rotateByX(-point.getX() / ORDINATE_VALUE_DIVIDER, coloredPoint);
-        }
-        for (ColoredPoint coloredPoint : coloredPoints) {
-            GeometryUtils.rotateByY(-point.getY() / ORDINATE_VALUE_DIVIDER, coloredPoint);
+            GeometryUtils.rotateByX(xRotation, coloredPoint);
+            GeometryUtils.rotateByY(yRotation, coloredPoint);
         }
     }
 }

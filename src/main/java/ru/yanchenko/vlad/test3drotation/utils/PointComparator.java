@@ -10,7 +10,11 @@ import java.util.Comparator;
 public class PointComparator implements Comparator<ColoredPoint> {
 
     @Override
-    public int compare(ColoredPoint b1, ColoredPoint b2) {
-        return (int)(b1.getDekartPoint().getZ() - b2.getDekartPoint().getZ());
+    public int compare(ColoredPoint point1, ColoredPoint point2) {
+        double z1 = point1.getDekartPoint().getZ();
+        double z2 = point2.getDekartPoint().getZ();
+
+        // Handle the case where Z-coordinates are equal.
+        return Double.compare(z1, z2);
     }
 }
