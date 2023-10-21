@@ -12,7 +12,7 @@ public class DrawingFrame extends JFrame {
     /**
      * Public constructor. Sets params and creates an instance.
      *
-     * @param screenData           to provide data on it
+     * @param screenData to provide data on it
      */
     public DrawingFrame(ScreenData screenData) {
         setSize(screenData.getScreenWidth(), screenData.getScreenHeight());

@@ -14,7 +14,7 @@ public class PointComparator implements Comparator<ColoredPoint> {
         double z1 = point1.getDekartPoint().getZ();
         double z2 = point2.getDekartPoint().getZ();
 
-        // Handle the case where Z-coordinates are equal.
+        // Handle the case where Z-ordinates are equal.
         return Double.compare(z1, z2);
     }
 }

@@ -12,16 +12,19 @@ import java.util.Random;
  */
 public final class BallsGenerationUtils {
 
+    private static final int MAX_COLOR_VALUE = 256;
+    private static final int MAX_ORDINATE_VALUE = 300;
+
     private BallsGenerationUtils() {
         throw new IllegalStateException("Should not instantiate BallsGenerationUtils class");
     }
 
     /**
-     * Clears and creates {@link ColoredPoint} scattered at random
+     * Clears a list of {@link ColoredPoint}, creates a new one and scatters them at random
      *
      * @param coloredPointsList that holds points to be drawn on {@link java.awt.Graphics}
-     * @param pointsNumber of points to be created
-     * @param range       that points are to be scattered within
+     * @param pointsNumber      of points to be created
+     * @param range             that points are to be scattered within
      */
     public static void randomizeBalls(List<ColoredPoint> coloredPointsList, int pointsNumber, int range) {
         Random random = new Random();
@@ -31,9 +34,9 @@ public final class BallsGenerationUtils {
                     Math.random() * range - range / 2.0,
                     Math.random() * range - range / 2.0,
                     Math.random() * range - range / 2.0),
-                    new Color(random.nextInt(256),
-                            random.nextInt(256),
-                            random.nextInt(256))));
+                    new Color(random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE))));
         }
     }
 
@@ -43,44 +46,44 @@ public final class BallsGenerationUtils {
     public static void createAndPlaceBallsAsCube(List<ColoredPoint> coloredPointsList) {
         coloredPointsList.clear();
         coloredPointsList.add(new ColoredPoint(new DekartPoint(
-                300,
-                300,
-                300),
+                MAX_ORDINATE_VALUE,
+                MAX_ORDINATE_VALUE,
+                MAX_ORDINATE_VALUE),
                 Color.WHITE));
         coloredPointsList.add(new ColoredPoint(new DekartPoint(
-                -300,
-                300,
-                300),
+                -MAX_ORDINATE_VALUE,
+                MAX_ORDINATE_VALUE,
+                MAX_ORDINATE_VALUE),
                 Color.WHITE));
         coloredPointsList.add(new ColoredPoint(new DekartPoint(
-                -300,
-                -300,
-                300),
+                -MAX_ORDINATE_VALUE,
+                -MAX_ORDINATE_VALUE,
+                MAX_ORDINATE_VALUE),
                 Color.WHITE));
         coloredPointsList.add(new ColoredPoint(new DekartPoint(
-                300,
-                -300,
-                300),
+                MAX_ORDINATE_VALUE,
+                -MAX_ORDINATE_VALUE,
+                MAX_ORDINATE_VALUE),
                 Color.WHITE));
         coloredPointsList.add(new ColoredPoint(new DekartPoint(
-                300,
-                300,
-                -300),
+                MAX_ORDINATE_VALUE,
+                MAX_ORDINATE_VALUE,
+                -MAX_ORDINATE_VALUE),
                 Color.WHITE));
         coloredPointsList.add(new ColoredPoint(new DekartPoint(
-                -300,
-                300,
-                -300),
+                -MAX_ORDINATE_VALUE,
+                MAX_ORDINATE_VALUE,
+                -MAX_ORDINATE_VALUE),
                 Color.WHITE));
         coloredPointsList.add(new ColoredPoint(new DekartPoint(
-                -300,
-                -300,
-                -300),
+                -MAX_ORDINATE_VALUE,
+                -MAX_ORDINATE_VALUE,
+                -MAX_ORDINATE_VALUE),
                 Color.WHITE));
         coloredPointsList.add(new ColoredPoint(new DekartPoint(
-                300,
-                -300,
-                -300),
+                MAX_ORDINATE_VALUE,
+                -MAX_ORDINATE_VALUE,
+                -MAX_ORDINATE_VALUE),
                 Color.WHITE));
     }
 }

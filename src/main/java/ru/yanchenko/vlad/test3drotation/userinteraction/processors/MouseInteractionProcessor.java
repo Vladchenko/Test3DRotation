@@ -19,7 +19,7 @@ public class MouseInteractionProcessor implements MouseDraggedEventCallback {
     private final List<ColoredPoint> coloredPoints;
 
     /**
-     * Create a MouseInteractionProcessor with the given list of ColoredPoints.
+     * Pun;ic constructor. Create a MouseInteractionProcessor with the given list of ColoredPoints.
      *
      * @param coloredPoints List of ColoredPoints to apply rotations to.
      */

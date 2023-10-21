@@ -17,6 +17,7 @@ public class FrameKeyListener implements KeyListener {
     /**
      * Public constructor. Sets params and creates an instance.
      *
+     * @param drawingFrame     to draw graphics onto
      * @param keyEventCallback of a keyboard buttons typing events
      */
     public FrameKeyListener(JFrame drawingFrame,

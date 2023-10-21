@@ -53,6 +53,11 @@ public class BallsDrawingPanel extends JPanel {
                 BasicStroke.JOIN_ROUND,
                 1, STROKE_DASH, 1.0f));
 
+        drawPoints(g2);
+
+    }
+
+    private void drawPoints(Graphics2D g2) {
         for (ColoredPoint coloredPoint : coloredPoints) {
             double radius = (coloredPoint.getDekartPoint().getZ() + range) / range * 20;
             double x = coloredPoint.getDekartPoint().getX() + xShift;
@@ -70,6 +75,5 @@ public class BallsDrawingPanel extends JPanel {
 
             g2.fillOval((int) (x - radius / 2), (int) (y - radius / 2), (int) radius, (int) radius);
         }
-
     }
 }

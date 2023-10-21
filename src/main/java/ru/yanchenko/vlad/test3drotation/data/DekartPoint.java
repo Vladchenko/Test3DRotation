@@ -1,7 +1,7 @@
 package ru.yanchenko.vlad.test3drotation.data;
 
 /**
- * 3D dekart point.
+ * Dekart point that has 3 ordinates (x,y,z) to draw in 3-dimensional space.
  */
 public class DekartPoint {
     private double x;
@@ -32,6 +32,13 @@ public class DekartPoint {
         this.z = z;
     }
 
+    /**
+     * Public constructor. Sets params and creates an instance.
+     *
+     * @param x ordinate
+     * @param y ordinate
+     * @param z ordinate
+     */
     public DekartPoint(double x, double y, double z) {
         this.x = x;
         this.y = y;
