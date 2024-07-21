@@ -20,13 +20,14 @@ public final class BallsGenerationUtils {
     }
 
     /**
-     * Clears a list of {@link ColoredPoint}, creates a new one and scatters them at random
+     * Clears a list of {@link ColoredPoint}, creates a new one and scatters them at random within a cube with each rib
+     * equal to {@param range}.
      *
      * @param coloredPointsList that holds points to be drawn on {@link java.awt.Graphics}
      * @param pointsNumber      of points to be created
      * @param range             that points are to be scattered within
      */
-    public static void randomizeBalls(List<ColoredPoint> coloredPointsList, int pointsNumber, int range) {
+    public static void randomizeBallsWithinCube(List<ColoredPoint> coloredPointsList, int pointsNumber, int range) {
         Random random = new Random();
         coloredPointsList.clear();
         for (int i = 0; i < pointsNumber; i++) {
@@ -34,6 +35,113 @@ public final class BallsGenerationUtils {
                     Math.random() * range - range / 2.0,
                     Math.random() * range - range / 2.0,
                     Math.random() * range - range / 2.0),
+                    new Color(random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE))));
+        }
+    }
+
+    /**
+     * Clears a list of {@link ColoredPoint}, creates a new one and scatters them at random on a surface of a cube.
+     *
+     * @param coloredPointsList that holds points to be drawn on {@link java.awt.Graphics}
+     * @param pointsNumber      of points to be created
+     * @param cubeSide          size of each side of a cube
+     */
+    public static void randomizeBallsOnCube(List<ColoredPoint> coloredPointsList, int pointsNumber, int cubeSide) {
+        Random random = new Random();
+        coloredPointsList.clear();
+        for (int i = 0; i < pointsNumber / 6; i++) {
+            coloredPointsList.add(new ColoredPoint(new DekartPoint(
+                    Math.random() * cubeSide - cubeSide / 2.0,
+                    Math.random() * cubeSide - cubeSide / 2.0,
+                    cubeSide / 2.0),
+                    new Color(random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE))));
+        }
+        for (int i = 0; i < pointsNumber / 6; i++) {
+            coloredPointsList.add(new ColoredPoint(new DekartPoint(
+                    Math.random() * cubeSide - cubeSide / 2.0,
+                    Math.random() * cubeSide - cubeSide / 2.0,
+                    - cubeSide / 2.0),
+                    new Color(random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE))));
+        }
+        for (int i = 0; i < pointsNumber / 6; i++) {
+            coloredPointsList.add(new ColoredPoint(new DekartPoint(
+                    Math.random() * cubeSide - cubeSide / 2.0,
+                    cubeSide / 2.0,
+                    Math.random() * cubeSide - cubeSide / 2.0),
+                    new Color(random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE))));
+        }
+        for (int i = 0; i < pointsNumber / 6; i++) {
+            coloredPointsList.add(new ColoredPoint(new DekartPoint(
+                    Math.random() * cubeSide - cubeSide / 2.0,
+                    - cubeSide / 2.0,
+                    Math.random() * cubeSide - cubeSide / 2.0),
+                    new Color(random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE))));
+        }
+        for (int i = 0; i < pointsNumber / 6; i++) {
+            coloredPointsList.add(new ColoredPoint(new DekartPoint(
+                    cubeSide / 2.0,
+                    Math.random() * cubeSide - cubeSide / 2.0,
+                    Math.random() * cubeSide - cubeSide / 2.0),
+                    new Color(random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE))));
+        }
+        for (int i = 0; i < pointsNumber / 6; i++) {
+            coloredPointsList.add(new ColoredPoint(new DekartPoint(
+                    - cubeSide / 2.0,
+                    Math.random() * cubeSide - cubeSide / 2.0,
+                    Math.random() * cubeSide - cubeSide / 2.0),
+                    new Color(random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE),
+                            random.nextInt(MAX_COLOR_VALUE))));
+        }
+    }
+
+    /**
+     * Randomly generates coordinates for balls.
+     * https://karthikkaranth.me/blog/generating-random-points-in-a-sphere/
+     *
+     * @param coloredPointsList incorporate balls to draw
+     * @param pointsNumber      represent a number of balls present on a screen
+     * @param _radius           that balls are scattered within
+     * @param insideSphere      defines whether balls are located within a sphere or on a surface of a spherte
+     */
+    public static void randomizeBallsSpherically(List<ColoredPoint> coloredPointsList, int pointsNumber, int _radius, boolean insideSphere) {
+        Random random = new Random();
+        coloredPointsList.clear();
+        var r = 0d;
+        for (int i = 0; i < pointsNumber; i++) {
+
+            var u = Math.random();
+            var v = Math.random();
+            var theta = u * 2.0 * Math.PI;
+            var phi = Math.acos(2.0 * v - 1.0);
+            // This way balls are scattered within a sphere. To make them located only on a surface of a sphere,
+            // make var r = _radius; in next row
+            if (insideSphere) {
+                r = Math.cbrt(Math.random()) * _radius;
+            } else {
+                r = _radius;
+            }
+            var sinTheta = Math.sin(theta);
+            var cosTheta = Math.cos(theta);
+            var sinPhi = Math.sin(phi);
+            var cosPhi = Math.cos(phi);
+
+            coloredPointsList.add(new ColoredPoint(new DekartPoint(
+                    r * sinPhi * cosTheta,
+                    r * sinPhi * sinTheta,
+                    r * cosPhi),
                     new Color(random.nextInt(MAX_COLOR_VALUE),
                             random.nextInt(MAX_COLOR_VALUE),
                             random.nextInt(MAX_COLOR_VALUE))));

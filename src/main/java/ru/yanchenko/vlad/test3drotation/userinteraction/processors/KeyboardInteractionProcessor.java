@@ -2,6 +2,7 @@ package ru.yanchenko.vlad.test3drotation.userinteraction.processors;
 
 import ru.yanchenko.vlad.test3drotation.data.ColoredPoint;
 import ru.yanchenko.vlad.test3drotation.presentation.DrawingContentChooser;
+import ru.yanchenko.vlad.test3drotation.presentation.DrawingTypeChanger;
 import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.KeyEventCallback;
 import ru.yanchenko.vlad.test3drotation.utils.GeometryUtils;
 
@@ -17,6 +18,7 @@ public class KeyboardInteractionProcessor implements KeyEventCallback {
     private final double angle;
     private final List<ColoredPoint> coloredPoints;
     private final DrawingContentChooser drawingContentChooser;
+    private final DrawingTypeChanger drawingTypeChanger;
     //endregion Fields
 
     /**
@@ -24,14 +26,17 @@ public class KeyboardInteractionProcessor implements KeyEventCallback {
      * <p>
      *
      * @param angle                 in radians that model is to be rotated on.
-     * @param drawingContentChooser defines a contetn to draw
+     * @param drawingContentChooser defines a content to draw
+     * @param drawingTypeChanger    changes a type of drawing
      * @param coloredPoints         to draw on a JFrame
      */
     public KeyboardInteractionProcessor(double angle,
                                         List<ColoredPoint> coloredPoints,
+                                        DrawingTypeChanger drawingTypeChanger,
                                         DrawingContentChooser drawingContentChooser) {
         this.angle = angle;
         this.coloredPoints = coloredPoints;
+        this.drawingTypeChanger = drawingTypeChanger;
         this.drawingContentChooser = drawingContentChooser;
     }
 
@@ -74,7 +79,8 @@ public class KeyboardInteractionProcessor implements KeyEventCallback {
         }
 
         if (keyEvent.getKeyCode() == ' ') {
-            drawingContentChooser.defineDrawContents();
+            drawingTypeChanger.changeDrawingType();
+            drawingContentChooser.defineDrawContents(drawingTypeChanger.getDrawingType());
         }
     }
 }

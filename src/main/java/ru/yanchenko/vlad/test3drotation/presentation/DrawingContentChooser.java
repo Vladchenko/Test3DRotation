@@ -6,11 +6,10 @@ import ru.yanchenko.vlad.test3drotation.utils.PointComparator;
 import javax.swing.*;
 import java.util.List;
 
-import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.createAndPlaceBallsAsCube;
-import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.randomizeBalls;
+import static ru.yanchenko.vlad.test3drotation.utils.BallsGenerationUtils.*;
 
 /**
- * Defines a JPanel to be drawn
+ * Prepares JFrame, JPanels and presentation data to be drawn on a screen.
  */
 public class DrawingContentChooser {
 
@@ -46,16 +45,32 @@ public class DrawingContentChooser {
     }
 
     /**
-     * Define a JPanel to draw graphics on.
+     * Define a JPanel and its contents to draw graphics on.
+     *
+     * @param drawingType type of contents to be drawn
      */
-    public void defineDrawContents() {
-        if (drawingFrame.getContentPane() instanceof BallsDrawingPanel) {
-            createAndPlaceBallsAsCube(coloredPoints);
-            drawingFrame.setContentPane(drawingPanelsFactory.getDrawingPanel(DrawingType.CUBE));
-        } else {
-            randomizeBalls(coloredPoints, pointsNumber, range);
-            coloredPoints.sort(pointComparator);
-            drawingFrame.setContentPane(drawingPanelsFactory.getDrawingPanel(DrawingType.BALLS));
+    public void defineDrawContents(DrawingType drawingType) {
+        switch (drawingType) {
+            case RIBBED_CUBE:
+                createAndPlaceBallsAsCube(coloredPoints);
+                break;
+            case BALLS_IN_CUBE:
+                randomizeBallsWithinCube(coloredPoints, pointsNumber, range);
+                coloredPoints.sort(pointComparator);
+                break;
+            case BALLS_ON_CUBE:
+                randomizeBallsOnCube(coloredPoints, pointsNumber, range);
+                coloredPoints.sort(pointComparator);
+                break;
+            case BALLS_ON_SPHERE:
+                randomizeBallsSpherically(coloredPoints, pointsNumber, range, false);
+                coloredPoints.sort(pointComparator);
+                break;
+            case BALLS_IN_SPHERE:
+                randomizeBallsSpherically(coloredPoints, pointsNumber, range, true);
+                coloredPoints.sort(pointComparator);
+                break;
         }
+        drawingFrame.setContentPane(drawingPanelsFactory.getDrawingPanel(drawingType));
     }
 }

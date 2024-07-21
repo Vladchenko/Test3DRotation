@@ -28,9 +28,12 @@ public class DrawingPanelsFactory {
      */
     public JPanel getDrawingPanel(DrawingType drawingType) {
         switch (drawingType) {
-            case CUBE:
+            case RIBBED_CUBE:
                 return cubeDrawingPanel;
-            case BALLS:
+            case BALLS_IN_CUBE:
+            case BALLS_ON_CUBE:
+            case BALLS_IN_SPHERE:
+            case BALLS_ON_SPHERE:
                 return ballsDrawingPanel;
             default:
                 throw new IllegalArgumentException("Invalid drawing type: " + drawingType);

@@ -23,9 +23,9 @@ public class Test3DRotationModule {
 
     //TODO Move these params to main method arguments someday
     // Range in px that balls will be scattered within.
-    static final int RANGE = 900;
+    static final int RANGE = 500;
     // Number of points to be drawn on a screen.
-    static final int POINTS_NUMBER = 100;
+    static final int POINTS_NUMBER = 1000;
     // Angle in radians that model is to be rotated on.
     static final double ANGLE = 0.03;
 
@@ -33,6 +33,12 @@ public class Test3DRotationModule {
     @Singleton
     ScreenData provideScreenData() {
         return new ScreenData();
+    }
+
+    @Provides
+    @Singleton
+    DrawingTypeChanger provideDrawingTypeChanger() {
+        return new DrawingTypeChanger();
     }
 
     @Provides
@@ -71,7 +77,7 @@ public class Test3DRotationModule {
     @Singleton
     JFrame provideDrawingFrame(ScreenData screenData, DrawingPanelsFactory drawingPanelsFactory) {
         JFrame frame = new DrawingFrame(screenData);
-        frame.setContentPane(drawingPanelsFactory.getDrawingPanel(DrawingType.CUBE));
+        frame.setContentPane(drawingPanelsFactory.getDrawingPanel(DrawingType.RIBBED_CUBE));
         frame.setVisible(true);
         return frame;
     }
@@ -79,10 +85,12 @@ public class Test3DRotationModule {
     @Provides
     @Singleton
     KeyboardInteractionProcessor provideKeyboardInteractionProcessor(List<ColoredPoint> coloredPointList,
+                                                                     DrawingTypeChanger drawingTypeChanger,
                                                                      DrawingContentChooser drawingContentChooser) {
         return new KeyboardInteractionProcessor(
                 ANGLE,
                 coloredPointList,
+                drawingTypeChanger,
                 drawingContentChooser);
     }
 
