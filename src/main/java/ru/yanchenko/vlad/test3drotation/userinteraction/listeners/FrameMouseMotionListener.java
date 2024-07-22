@@ -5,21 +5,20 @@ import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.MouseDraggedEv
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 /**
  * Mouse buttons clicking listener for a JFrame that graphics to be drawn on.
- *
- * @author Влад
  */
-public class FrameMouseMotionListener implements MouseMotionListener {
+public class FrameMouseMotionListener implements MouseMotionListener, MouseListener {
 
     private MouseEvent mouseEvent;
     private final JFrame drawingFrame;
     private final MouseDraggedEventCallback mouseEventCallback;
 
     /**
-     * Public constructor. Sets params and creates an instance.
+     * Public constructor. Create an instance of class with the required parameters.
      *
      * @param mouseEventCallback of a mouse buttons typing events
      * @param drawingFrame       to draw graphics on
@@ -43,6 +42,31 @@ public class FrameMouseMotionListener implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        // Not used
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // Not used
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // Not used
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        mouseEvent = null;
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // Not used
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
         // Not used
     }
 }

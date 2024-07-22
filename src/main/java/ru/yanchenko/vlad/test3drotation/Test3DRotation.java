@@ -20,5 +20,6 @@ public class Test3DRotation {
         JFrame drawingFrame = daggerComponent.getDrawingFrame();
         drawingFrame.addKeyListener(daggerComponent.getFrameKeyListener());
         drawingFrame.addMouseMotionListener(daggerComponent.getFrameMouseMotionListener());
+        drawingFrame.addMouseListener(daggerComponent.getFrameMouseMotionListener());
     }
 }
