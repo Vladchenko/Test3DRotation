@@ -20,7 +20,7 @@ public class BallsDrawingPanel extends JPanel {
     private final int range;
     private final int xShift;
     private final int yShift;
-    private final List<ColoredPoint> coloredPoints;
+    private final transient List<ColoredPoint> coloredPoints;
 
     /**
      * Public constructor. Sets params and creates an instance.

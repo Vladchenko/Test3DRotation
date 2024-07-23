@@ -14,6 +14,7 @@ public final class BallsGenerationUtils {
 
     private static final int MAX_COLOR_VALUE = 256;
     private static final int MAX_ORDINATE_VALUE = 300;
+    private static final Random random = new Random();
 
     private BallsGenerationUtils() {
         throw new IllegalStateException("Should not instantiate BallsGenerationUtils class");
@@ -28,7 +29,6 @@ public final class BallsGenerationUtils {
      * @param range             that points are to be scattered within
      */
     public static void randomizeBallsWithinCube(List<ColoredPoint> coloredPointsList, int pointsNumber, int range) {
-        Random random = new Random();
         coloredPointsList.clear();
         for (int i = 0; i < pointsNumber; i++) {
             coloredPointsList.add(new ColoredPoint(new DekartPoint(
@@ -49,7 +49,6 @@ public final class BallsGenerationUtils {
      * @param cubeSide          size of each side of a cube
      */
     public static void randomizeBallsOnCube(List<ColoredPoint> coloredPointsList, int pointsNumber, int cubeSide) {
-        Random random = new Random();
         coloredPointsList.clear();
         for (int i = 0; i < pointsNumber / 6; i++) {
             coloredPointsList.add(new ColoredPoint(new DekartPoint(
@@ -114,24 +113,21 @@ public final class BallsGenerationUtils {
      * @param coloredPointsList incorporate balls to draw
      * @param pointsNumber      represent a number of balls present on a screen
      * @param diameter          that balls are scattered within
-     * @param insideSphere      defines whether balls are located within a sphere or on a surface of a spherte
+     * @param insideSphere      defines whether balls are located within a sphere or on a surface of a sphere
      */
     public static void randomizeBallsSpherically(List<ColoredPoint> coloredPointsList, int pointsNumber, int diameter, boolean insideSphere) {
-        Random random = new Random();
         coloredPointsList.clear();
-        var r = 0d;
+        double r;
         for (int i = 0; i < pointsNumber; i++) {
 
             var u = Math.random();
             var v = Math.random();
             var theta = u * 2.0 * Math.PI;
             var phi = Math.acos(2.0 * v - 1.0);
-            // This way balls are scattered within a sphere. To make them located only on a surface of a sphere,
-            // make var r = diameter; in next row
             if (insideSphere) {
                 r = Math.cbrt(Math.random()) * diameter / 2;
             } else {
-                r = diameter / 2;
+                r = diameter / 2.0;
             }
             var sinTheta = Math.sin(theta);
             var cosTheta = Math.cos(theta);

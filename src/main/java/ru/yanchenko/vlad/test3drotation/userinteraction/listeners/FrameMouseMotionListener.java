@@ -1,6 +1,5 @@
 package ru.yanchenko.vlad.test3drotation.userinteraction.listeners;
 
-import ru.yanchenko.vlad.test3drotation.presentation.DrawingTypeChanger;
 import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.MouseDraggedEventCallback;
 
 import javax.swing.*;

@@ -2,4 +2,3 @@
 - Get range, pointsNumber from main methods params
 - Try implement polymorphism for JPanels (check method getDrawingPanel() in DrawingPanelsFactory)
 - MouseInteractionProcessor breaks single responsibility, since implements 2 interfaces
-- Implement Z Buffer

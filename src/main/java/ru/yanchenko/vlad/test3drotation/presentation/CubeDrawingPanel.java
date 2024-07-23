@@ -12,8 +12,8 @@ import java.util.List;
  */
 public class CubeDrawingPanel extends JPanel {
 
-    private final float[] CUBE_RIB_GRADIENT_THRESHOLDS = {0.0f, 0.4f, 0.6f, 1.0f};
-    private final Color[] CUBE_RIB_GRADIENT_COLORS = {
+    private static final float[] CUBE_RIB_GRADIENT_THRESHOLDS = {0.0f, 0.4f, 0.6f, 1.0f};
+    private static final Color[] CUBE_RIB_GRADIENT_COLORS = {
             new Color(255, 255, 255, 255),
             new Color(0, 0, 0, 0),
             new Color(0, 0, 0, 0),
@@ -22,7 +22,7 @@ public class CubeDrawingPanel extends JPanel {
 
     private final int xShift;
     private final int yShift;
-    private final List<ColoredPoint> coloredPoints;
+    private final transient List<ColoredPoint> coloredPoints;
 
     /**
      * Public constructor. Sets params and creates an instance.
