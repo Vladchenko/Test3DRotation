@@ -96,8 +96,10 @@ public class Test3DRotationModule {
 
     @Provides
     @Singleton
-    MouseInteractionProcessor provideMouseInteractionProcessor(List<ColoredPoint> coloredPointList) {
-        return new MouseInteractionProcessor(coloredPointList);
+    MouseInteractionProcessor provideMouseInteractionProcessor(PointComparator pointComparator,
+                                                               List<ColoredPoint> coloredPointList,
+                                                               DrawingTypeChanger drawingTypeChanger) {
+        return new MouseInteractionProcessor(pointComparator, coloredPointList, drawingTypeChanger);
     }
 
     @Provides

@@ -1,5 +1,6 @@
 package ru.yanchenko.vlad.test3drotation.userinteraction.listeners;
 
+import ru.yanchenko.vlad.test3drotation.presentation.DrawingTypeChanger;
 import ru.yanchenko.vlad.test3drotation.userinteraction.callbacks.MouseDraggedEventCallback;
 
 import javax.swing.*;
@@ -20,8 +21,8 @@ public class FrameMouseMotionListener implements MouseMotionListener, MouseListe
     /**
      * Public constructor. Create an instance of class with the required parameters.
      *
-     * @param mouseEventCallback of a mouse buttons typing events
      * @param drawingFrame       to draw graphics on
+     * @param mouseEventCallback of a mouse buttons typing events
      */
     public FrameMouseMotionListener(JFrame drawingFrame,
                                     MouseDraggedEventCallback mouseEventCallback) {
@@ -32,7 +33,9 @@ public class FrameMouseMotionListener implements MouseMotionListener, MouseListe
     @Override
     public void mouseDragged(MouseEvent e) {
         if (mouseEvent != null) {
-            mouseEventCallback.rotateByXAndY(new Point((mouseEvent.getY() - e.getY()), mouseEvent.getX() - e.getX()));
+            mouseEventCallback.rotateByXAndY(
+                    new Point((mouseEvent.getY() - e.getY()), mouseEvent.getX() - e.getX())
+            );
             drawingFrame.repaint();
         }
         if (mouseEvent != e) {

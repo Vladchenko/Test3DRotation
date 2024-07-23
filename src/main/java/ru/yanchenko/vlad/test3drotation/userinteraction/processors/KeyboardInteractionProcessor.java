@@ -26,9 +26,9 @@ public class KeyboardInteractionProcessor implements KeyEventCallback {
      * <p>
      *
      * @param angle                 in radians that model is to be rotated on.
-     * @param drawingContentChooser defines a content to draw
-     * @param drawingTypeChanger    changes a type of drawing
      * @param coloredPoints         to draw on a JFrame
+     * @param drawingTypeChanger    changes a type of drawing
+     * @param drawingContentChooser defines a content to draw
      */
     public KeyboardInteractionProcessor(double angle,
                                         List<ColoredPoint> coloredPoints,
