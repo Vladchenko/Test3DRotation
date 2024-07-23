@@ -23,7 +23,7 @@ public class Test3DRotationModule {
 
     //TODO Move these params to main method arguments someday
     // Range in px that balls will be scattered within.
-    static final int RANGE = 500;
+    static final int RANGE = 700;
     // Number of points to be drawn on a screen.
     static final int POINTS_NUMBER = 1000;
     // Angle in radians that model is to be rotated on.

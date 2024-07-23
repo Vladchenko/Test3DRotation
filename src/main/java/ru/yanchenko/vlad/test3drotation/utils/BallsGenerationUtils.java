@@ -113,10 +113,10 @@ public final class BallsGenerationUtils {
      *
      * @param coloredPointsList incorporate balls to draw
      * @param pointsNumber      represent a number of balls present on a screen
-     * @param _radius           that balls are scattered within
+     * @param diameter          that balls are scattered within
      * @param insideSphere      defines whether balls are located within a sphere or on a surface of a spherte
      */
-    public static void randomizeBallsSpherically(List<ColoredPoint> coloredPointsList, int pointsNumber, int _radius, boolean insideSphere) {
+    public static void randomizeBallsSpherically(List<ColoredPoint> coloredPointsList, int pointsNumber, int diameter, boolean insideSphere) {
         Random random = new Random();
         coloredPointsList.clear();
         var r = 0d;
@@ -127,11 +127,11 @@ public final class BallsGenerationUtils {
             var theta = u * 2.0 * Math.PI;
             var phi = Math.acos(2.0 * v - 1.0);
             // This way balls are scattered within a sphere. To make them located only on a surface of a sphere,
-            // make var r = _radius; in next row
+            // make var r = diameter; in next row
             if (insideSphere) {
-                r = Math.cbrt(Math.random()) * _radius;
+                r = Math.cbrt(Math.random()) * diameter / 2;
             } else {
-                r = _radius;
+                r = diameter / 2;
             }
             var sinTheta = Math.sin(theta);
             var cosTheta = Math.cos(theta);
