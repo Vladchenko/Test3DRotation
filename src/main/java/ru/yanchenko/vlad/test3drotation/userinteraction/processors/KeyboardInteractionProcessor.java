@@ -42,6 +42,10 @@ public class KeyboardInteractionProcessor implements KeyEventCallback {
 
     @Override
     public void getKeyEvent(KeyEvent keyEvent) {
+        if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
+
         if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
             for (ColoredPoint coloredPoint : coloredPoints) {
                 GeometryUtils.rotateByX(-angle, coloredPoint);
@@ -67,14 +71,14 @@ public class KeyboardInteractionProcessor implements KeyEventCallback {
         }
 
         if (keyEvent.getKeyCode() == '[') {
-            for (ColoredPoint ColoredPoint : coloredPoints) {
-                GeometryUtils.rotateByZ(angle, ColoredPoint);
+            for (ColoredPoint coloredPoint : coloredPoints) {
+                GeometryUtils.rotateByZ(angle, coloredPoint);
             }
         }
 
         if (keyEvent.getKeyCode() == ']') {
-            for (ColoredPoint ColoredPoint : coloredPoints) {
-                GeometryUtils.rotateByZ(-angle, ColoredPoint);
+            for (ColoredPoint coloredPoint : coloredPoints) {
+                GeometryUtils.rotateByZ(-angle, coloredPoint);
             }
         }
 
