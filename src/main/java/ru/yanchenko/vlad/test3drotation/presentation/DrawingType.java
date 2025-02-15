@@ -21,6 +21,10 @@ public enum DrawingType {
      */
     BALLS_ON_SPHERE,
     /**
+     * Draw scattered balls in orderly fashion on a surface of a sphere
+     */
+    BALLS_IN_ORDERED_SPHERE,
+    /**
      * Draw lines(ribs) that make up a cube
      */
     RIBBED_CUBE,

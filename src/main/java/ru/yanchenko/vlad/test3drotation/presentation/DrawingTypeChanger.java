@@ -27,6 +27,9 @@ public class DrawingTypeChanger {
                 drawingType = BALLS_ON_SPHERE;
                 break;
             case BALLS_ON_SPHERE:
+                drawingType = BALLS_IN_ORDERED_SPHERE;
+                break;
+            case BALLS_IN_ORDERED_SPHERE:
                 drawingType = RIBBED_CUBE;
                 break;
         }

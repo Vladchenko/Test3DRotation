@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public final class BallsGenerationUtils {
 
-    private static final int MAX_COLOR_VALUE = 256;
+    private static final int MAX_COLOR_VALUE = 255;
     private static final int MAX_ORDINATE_VALUE = 300;
     private static final Random random = new Random();
 
@@ -63,7 +63,7 @@ public final class BallsGenerationUtils {
             coloredPointsList.add(new ColoredPoint(new DekartPoint(
                     Math.random() * cubeSide - cubeSide / 2.0,
                     Math.random() * cubeSide - cubeSide / 2.0,
-                    - cubeSide / 2.0),
+                    -cubeSide / 2.0),
                     new Color(random.nextInt(MAX_COLOR_VALUE),
                             random.nextInt(MAX_COLOR_VALUE),
                             random.nextInt(MAX_COLOR_VALUE))));
@@ -80,7 +80,7 @@ public final class BallsGenerationUtils {
         for (int i = 0; i < pointsNumber / 6; i++) {
             coloredPointsList.add(new ColoredPoint(new DekartPoint(
                     Math.random() * cubeSide - cubeSide / 2.0,
-                    - cubeSide / 2.0,
+                    -cubeSide / 2.0,
                     Math.random() * cubeSide - cubeSide / 2.0),
                     new Color(random.nextInt(MAX_COLOR_VALUE),
                             random.nextInt(MAX_COLOR_VALUE),
@@ -97,7 +97,7 @@ public final class BallsGenerationUtils {
         }
         for (int i = 0; i < pointsNumber / 6; i++) {
             coloredPointsList.add(new ColoredPoint(new DekartPoint(
-                    - cubeSide / 2.0,
+                    -cubeSide / 2.0,
                     Math.random() * cubeSide - cubeSide / 2.0,
                     Math.random() * cubeSide - cubeSide / 2.0),
                     new Color(random.nextInt(MAX_COLOR_VALUE),
@@ -115,9 +115,10 @@ public final class BallsGenerationUtils {
      * @param diameter          that balls are scattered within
      * @param insideSphere      defines whether balls are located within a sphere or on a surface of a sphere
      */
-    public static void randomizeBallsSpherically(List<ColoredPoint> coloredPointsList, int pointsNumber, int diameter, boolean insideSphere) {
+    public static void randomizeBallsSpherically(List<ColoredPoint> coloredPointsList, int pointsNumber,
+                                                 int diameter, boolean insideSphere) {
         coloredPointsList.clear();
-        double r;
+        double radius;
         for (int i = 0; i < pointsNumber; i++) {
 
             var u = Math.random();
@@ -125,9 +126,9 @@ public final class BallsGenerationUtils {
             var theta = u * 2.0 * Math.PI;
             var phi = Math.acos(2.0 * v - 1.0);
             if (insideSphere) {
-                r = Math.cbrt(Math.random()) * diameter / 2;
+                radius = Math.cbrt(Math.random()) * diameter / 2;
             } else {
-                r = diameter / 2.0;
+                radius = diameter / 2.0;
             }
             var sinTheta = Math.sin(theta);
             var cosTheta = Math.cos(theta);
@@ -135,12 +136,49 @@ public final class BallsGenerationUtils {
             var cosPhi = Math.cos(phi);
 
             coloredPointsList.add(new ColoredPoint(new DekartPoint(
-                    r * sinPhi * cosTheta,
-                    r * sinPhi * sinTheta,
-                    r * cosPhi),
+                    radius * sinPhi * cosTheta,
+                    radius * sinPhi * sinTheta,
+                    radius * cosPhi),
                     new Color(random.nextInt(MAX_COLOR_VALUE),
                             random.nextInt(MAX_COLOR_VALUE),
                             random.nextInt(MAX_COLOR_VALUE))));
+        }
+    }
+
+    public static void createAndPlaceBallsAsOrderedSphere(List<ColoredPoint> coloredPointsList, int diameter) {
+        coloredPointsList.clear();
+        double radius = diameter / 2.0;
+        double u = 0;
+        double v = 0.025;
+        double theta;
+        double phi;
+        double step = 0.05;
+        double sinTheta;
+        double cosTheta;
+        double sinPhi;
+        double cosPhi;
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 20; j++) {
+                theta = u * 2.0 * Math.PI;
+                phi = Math.acos(2.0 * v - 1.0);
+                sinTheta = Math.sin(theta);
+                cosTheta = Math.cos(theta);
+                sinPhi = Math.sin(phi);
+                cosPhi = Math.cos(phi);
+                u += step;
+                coloredPointsList.add(
+                        new ColoredPoint(
+                                new DekartPoint(
+                                        radius * sinPhi * cosTheta,
+                                        radius * sinPhi * sinTheta,
+                                        radius * cosPhi),
+                                new Color((int) (MAX_COLOR_VALUE - Math.abs(MAX_COLOR_VALUE * sinPhi * cosTheta)),
+                                        (int) (MAX_COLOR_VALUE - Math.abs(MAX_COLOR_VALUE * sinPhi * sinTheta)),
+                                        (int) (MAX_COLOR_VALUE - Math.abs(MAX_COLOR_VALUE * cosPhi * cosTheta)))
+                        )
+                );
+            }
+            v += step;
         }
     }
 

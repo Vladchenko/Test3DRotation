@@ -70,6 +70,10 @@ public class DrawingContentChooser {
                 randomizeBallsSpherically(coloredPoints, pointsNumber, range, true);
                 coloredPoints.sort(pointComparator);
                 break;
+            case BALLS_IN_ORDERED_SPHERE:
+                createAndPlaceBallsAsOrderedSphere(coloredPoints, range);
+                coloredPoints.sort(pointComparator);
+                break;
         }
         drawingFrame.setContentPane(drawingPanelsFactory.getDrawingPanel(drawingType));
     }
